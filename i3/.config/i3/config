@@ -47,13 +47,13 @@ default_orientation horizontal
 # -----------------------------------------------------------------------------
 
 # Start a terminal
-bindsym $mod+Control+n exec --no-startup-id rxvt-unicode -name 'rxvt-unicode'
+bindsym $mod+Return exec --no-startup-id urxvt -name 'rxvt-unicode'
 
 # Kill focused window
-bindsym $mod+Control+j kill
+bindsym $mod+Shift+q kill
 
 # Start program launcher
-bindsym $mod+space exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id rofi -show run
 
 # Navigate to the next/prev workspace
 bindsym $mod+Control+l workspace next
@@ -170,20 +170,21 @@ mode "$mode_resize" {
 	bindsym Control+c mode "default"
 }
 
+# Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
-
-# System mode
-set $mode_system [L], [R], [P]
-
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-	bindsym l exec --no-startup-id i3-msg exit, mode "default"
-	bindsym r exec --no-startup-id sh ~/.config/i3/reboot.sh, mode "default"
-	bindsym p exec --no-startup-id sh ~/.config/i3/power.sh, mode "default"
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
-	# Exit system mode: "Enter" or "Escape"
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym Control+c mode "default"
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 # Move floating windows with keys
@@ -219,10 +220,11 @@ mode "$mode_caps" {
 }
 
 # Open applications
+bindsym $mod+Control+b exec terminal -e 'bmenu'
 bindsym $mod+Control+g exec --no-startup-id gvim
 bindsym $mod+Control+e exec --no-startup-id emacs
 bindsym $mod+Control+f exec --no-startup-id pcmanfm
-bindsym $mod+Control+b exec --no-startup-id FBReader
+# bindsym $mod+Control+b exec --no-startup-id FBReader
 bindsym $mod+Control+q exec --no-startup-id qalculate-gtk
 bindsym $mod+Control+m exec --no-startup-id urxvt -name 'qalc' -e 'qalc'
 bindsym $mod+Control+o exec --no-startup-id urxvt -name 'python' -e 'bpython3'
@@ -248,10 +250,10 @@ bindsym XF86AudioPrev exec --no-startup-id cmus-remote -r && \
 	notify-send -t 2 'Cmus: prev'
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10% && \
-	sh ~/.config/i3/xbacklight.sh
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10% && \
-	sh ~/.config/i3/xbacklight.sh
+# bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10% && \
+# 	sh ~/.config/i3/xbacklight.sh
+# bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10% && \
+# 	sh ~/.config/i3/xbacklight.sh
 
 # Screenshot
 bindsym --release $mod+Print exec --no-startup-id scrot \
@@ -400,13 +402,90 @@ exec --no-startup-id feh --bg-fill ~/.wallpaper/debian_cyan.png
 exec --no-startup-id bash ~/.config/i3/autoxrandr.sh
 
 exec --no-startup-id setcursor
-exec --no-startup-id setxkbmap es
 exec --no-startup-id udiskie -s
-# exec --no-startup-id volumeicon
+exec --no-startup-id volumeicon
 # exec --no-startup-id wicd-gtk -t
+
+# Autostart applications
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; --config ~/.compton.conf
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec --no-startup-id blueman-applet
+exec_always --no-startup-id sbxkb
+# exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_green
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+
+
 
 #Set default volume
 exec --no-startup-id pactl set-sink-volume 0 '30%'
 
-# Set LCD brightness
-exec --no-startup-id xbacklight -set 50%
+# # Screen brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+
+
+#############################
+### settings for i3-gaps: ###
+#############################
+
+# Set inner/outer gaps
+gaps inner 10
+gaps outer -4
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
