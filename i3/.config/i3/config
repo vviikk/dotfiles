@@ -16,20 +16,20 @@ font pango: Terminus 10
 
 # Atomic palette                 Fallback
 set_from_resource $base1 color0  #141A1F
-set_from_resource $acr50 color1  #EC5252
-set_from_resource $acg50 color2  #5DA813
-set_from_resource $aco50 color3  #C97016
-set_from_resource $acb50 color4  #3790E9
-set_from_resource $acv50 color5  #A35AED
-set_from_resource $acc50 color6  #13AEAE
-set_from_resource $base3 color7  #53697F
-set_from_resource $base2 color8  #1A2128
-set_from_resource $acr70 color9  #FF9191
-set_from_resource $acg70 color10 #9ACD68
-set_from_resource $aco70 color11 #EDA45C
-set_from_resource $acb70 color12 #7DBEFF
-set_from_resource $acv70 color13 #CA96FF
-set_from_resource $acc70 color14 #6ECFCF
+set_from_resource $acr50 color8  #1A2128
+set_from_resource $acg50 color1  #EC5252
+set_from_resource $aco50 color9  #FF9191
+set_from_resource $acb50 color2  #5DA713
+set_from_resource $acv50 color10 #9ACD68
+set_from_resource $acc50 color3  #C97016
+set_from_resource $base3 color11 #EDA55D
+set_from_resource $base2 color4  #3890E9
+set_from_resource $acr70 color12 #7DBEFF
+set_from_resource $acg70 color5  #A359ED
+set_from_resource $aco70 color13 #CB96FF
+set_from_resource $acb70 color6  #13AFAF
+set_from_resource $acv70 color14 #6ECFCF
+set_from_resource $acc70 color7  #6B859E
 set_from_resource $base4 color15 #A6B5C5
 
 # Border style
@@ -47,7 +47,7 @@ default_orientation horizontal
 # -----------------------------------------------------------------------------
 
 # Start a terminal
-bindsym $mod+Return exec --no-startup-id urxvt -name 'rxvt-unicode'
+bindsym $mod+Return exec --no-startup-id kitty 
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -108,7 +108,7 @@ set $ws2  "2: dev "
 set $ws3  "3: des "
 set $ws4  "4: doc "
 set $ws5  "5: net "
-set $ws6  "6: sys "
+set $ws6  "6: dow "
 set $ws7  "7: var "
 set $ws8  "8: com "
 set $ws9  "9: www "
@@ -148,7 +148,7 @@ focus_on_window_activation focus
 bindsym $mod+Control+c reload
 
 # Restart i3 inplace (preserves your layout/session)
-bindsym $mod+Control+r restart
+bindsym $mod+Shift+r restart
 
 # Block the screen (i3lock)
 bindsym $mod+Control+x exec i3lock --color "$base1"
@@ -226,9 +226,9 @@ bindsym $mod+Control+e exec --no-startup-id emacs
 bindsym $mod+Control+f exec --no-startup-id pcmanfm
 # bindsym $mod+Control+b exec --no-startup-id FBReader
 bindsym $mod+Control+q exec --no-startup-id qalculate-gtk
-bindsym $mod+Control+m exec --no-startup-id urxvt -name 'qalc' -e 'qalc'
-bindsym $mod+Control+o exec --no-startup-id urxvt -name 'python' -e 'bpython3'
-bindsym $mod+Control+v exec --no-startup-id urxvt -name 'alsa' -e 'alsamixer'
+bindsym $mod+Control+m exec --no-startup-id kitty -name 'qalc' -e 'qalc'
+bindsym $mod+Control+o exec --no-startup-id kitty -name 'python' -e 'bpython3'
+bindsym $mod+Control+v exec --no-startup-id kitty -name 'alsa' -e 'alsamixer'
 bindsym $mod+Control+s exec --no-startup-id simplescreenrecorder --start-hidden
 
 # Pulse Audio controls
@@ -286,6 +286,8 @@ bindsym --whole-window $mod+button2 kill
 
 # 1: >_
 assign [class="^URxvt$" instance="^rxvt-unicode$"] $ws1
+assign [class="^Kitty$"] $ws1
+assign [class="^kitty$"] $ws1
 
 # 2: dev
 assign [class="^Gvim$"] $ws2
@@ -321,6 +323,7 @@ assign [class="^Amule$"] $ws5
 # 6: sys
 assign [class="^Synaptic$"] $ws6
 assign [class="^Pcmanfm$"] $ws6
+assign [class="^SoulseetQT"] $ws6
 
 # 7: var
 assign [class="^VirtualBox Manager$"] $ws7
@@ -331,6 +334,7 @@ assign [class="^ioquake3$"] $ws7
 # 8: com
 assign [class="^Skype$"] $ws8
 assign [class="^TelegramDesktop$"] $ws8
+assign [class="^WhatsDesktop$"] $ws8
 
 # 9: www
 assign [class="^Firefox$"] $ws9
@@ -410,7 +414,7 @@ exec --no-startup-id volumeicon
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; --config ~/.compton.conf
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
+
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
@@ -421,7 +425,8 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
-
+#Launch Power Manager
+exec –no-startup-id sleep 3 && xfce4-power-manager
 
 #Set default volume
 exec --no-startup-id pactl set-sink-volume 0 '30%'
