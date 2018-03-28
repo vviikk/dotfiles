@@ -5,11 +5,22 @@ scroll_right
 scroll_left
 scroll_up
 scroll_down
+toggle_fullscreen
+save_filelist
+next_img
+prev_img
 
 # Custom key mapping:
-zoom_in z
-zoom_out Z
-scroll_up k
-scroll_down j
-scroll_left h
-scroll_right l
+zoom_in J z
+zoom_out K Z
+
+scroll_up k Up
+scroll_down j Down
+scroll_right l Right
+scroll_left h Left
+
+toggle_fullscreen f
+save_filelist F
+
+next_img L space
+prev_img BackSpace H
