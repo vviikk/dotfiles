@@ -10,7 +10,7 @@
 
 # But when it is pressed only once, treat it as escape.
 xcape
-
+echo 'xcape set' >> ~/.xsession-errors
 # Map the menu button to right super as well.
-xmodmap -e 'keycode 135 = Super_R'
+# xmodmap -e 'keycode 135 = Super_R'
 #keycode 135 = Super_R NoSymbol Super_R

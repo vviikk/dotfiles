@@ -106,7 +106,7 @@ export BROWSER="firefox"
 source ~/.term_aliases
 source ~/dotfiles/pomo/pomodoro/pomodoro.sh
 
-eval "$(ssh-agent -s)"
-alias sshi='ssh-add ~/.ssh/id_rsa'
+# eval "$(ssh-agent -s)"
+# alias sshi='ssh-add ~/.ssh/id_rsa'
 
 source ~/.scripts/z.sh
