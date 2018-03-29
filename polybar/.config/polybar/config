@@ -9,8 +9,8 @@
 ;=====================================================
 
 [colors]
-;background = ${xrdb:color0}
-background = #00000000
+background = ${xrdb:color0}
+;background = #00000000
 background-alt = #444
 foreground = ${xrdb:color7}
 ;foreground = #dfdfdf
