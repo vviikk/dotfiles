@@ -1,6 +1,3 @@
-# Run wal's escape sequences to set theme
-cat /home/piggyslasher/.cache/wal/sequences # run first to prevent flicker
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -11,6 +8,9 @@ export ZSH=/home/piggyslasher/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+
+# Run wal's escape sequences to set theme
+cat /home/piggyslasher/.cache/wal/sequences # run first to prevent flicker
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
