@@ -502,3 +502,66 @@ bindsym XF86Documents		exec $term ranger ~/Documents
 ##bindsym XF86Battery		exec
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
+
+
+# -----------------------------------------------------------------------------
+# Assignments
+# -----------------------------------------------------------------------------
+
+# 1: >_
+assign [class="^URxvt$" instance="^rxvt-unicode$"] $ws1
+assign [class="^Kitty$"] $ws1
+assign [class="^kitty$"] $ws1
+
+# 2: dev
+assign [class="^Gvim$"] $ws2
+assign [class="^Emacs$"] $ws2
+assign [class="^Atom$"] $ws2
+assign [class="^Eclipse$"] $ws2
+assign [class="^QtCreator$"] $ws2
+assign [class="^Codeblocks$"] $ws2
+
+# 3: des
+assign [class="^Glade$"] $ws3
+assign [class="^Designer$"] $ws3
+assign [class="^Dia$"] $ws3
+assign [class="^Gimp$"] $ws3
+assign [class="^Inkscape$"] $ws3
+assign [class="^Blender$"] $ws3
+assign [class="^QCAD$"] $ws3
+assign [class="^LibreCAD$"] $ws3
+assign [class="^Freecad$"] $ws3
+
+# 4: doc
+assign [class="^Apvlv$"] $ws4
+assign [class="^Zathura$"] $ws4
+assign [class="^PdfMod$"] $ws4
+assign [class="^FBReader$"] $ws4
+assign [class="^libreoffice-startcenter$"] $ws4
+
+# 5: net
+assign [class="^Filezilla$"] $ws5
+assign [class="^Deluge$"] $ws5
+assign [class="^Amule$"] $ws5
+
+# 6: sys
+assign [class="^Synaptic$"] $ws6
+assign [class="^Pcmanfm$"] $ws6
+assign [class="^SoulseetQT"] $ws6
+
+# 7: var
+assign [class="^VirtualBox Manager$"] $ws7
+assign [class="^Wxmaxima$"] $ws7
+assign [class="^mpv$"] $ws7
+assign [class="^ioquake3$"] $ws7
+
+# 8: com
+assign [class="^Skype$"] $ws8
+assign [class="^TelegramDesktop$"] $ws8
+assign [class="^WhatsDesktop$"] $ws8
+
+# 9: www
+assign [class="^Firefox$"] $ws9
+assign [class="^Firefox-esr$"] $ws9
+assign [class="^Chromium$"] $ws9
+assign [class="^qutebrowser$"] $ws9
