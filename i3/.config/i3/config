@@ -13,7 +13,7 @@
 # 
 
 
-# This is Luke Smith's i3-gaps configuration file.
+# This is Vik Ramanujam's i3-gaps configuration file.
 # Me: http://vik.ramanuj.am
 # Email: vik@ramanuj.am
 # Github: https://github.com/piggyslasher
@@ -28,7 +28,7 @@ gaps inner 15
 gaps outer 15
 font pango:mono 9
 set $mod Mod4
-set $term --no-startup-id kitty
+set $term --no-startup-id kitty ~/.scripts/kitty-with-theme.sh
 set $video --no-startup-id bash video.sh
 set $stoprec --no-startup-id killall ffmpeg
 
@@ -142,7 +142,7 @@ set $audio --no-startup-id bash audio_alsa.sh
 #set $audio --no-startup-id bash audio_pulse.sh
 
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec $term
+bindsym $mod+Return 		exec $term zsh
 bindsym $mod+Shift+Return 	exec $term nvim ~/dotfiles/i3/.config/i3/config
 
 bindsym $mod+Shift+space 	floating toggle
@@ -170,7 +170,7 @@ bindsym $mod+Shift+w	exec --no-startup-id $BROWSER
 bindsym $mod+e			exec $term neomutt
 ##bindsym $mod+Shift+a
 
-bindsym $mod+r 			exec $term ~/.scripts/run_ranger.sh
+bindsym $mod+r 			exec $term ranger
 bindsym $mod+Shift+r	exec $term sudo ~/.scripts/run_ranger.sh /
 
 bindsym $mod+t			split toggle
@@ -274,7 +274,7 @@ set $ws2  "2: dev "
 set $ws3  "3: des "
 set $ws4  "4: doc "
 set $ws5  "5: net "
-set $ws6  "6: dow "
+set $ws6  "6: med "
 set $ws7  "7: var "
 set $ws8  "8: com "
 set $ws9  "9: www "
@@ -411,7 +411,7 @@ for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 5
 # Runs the tmuxinit script, which searches for an earlier tmux instance,
 # otherwise starts a new one (to prevent multiple dropdown sessions).
-exec --no-startup-id $term --name=dropdown ~/.scripts/tmuxinit
+exec --no-startup-id kitty --name=dropdown ~/.scripts/tmuxinit
 # Runs neofetch on first tmux screen if installed.
 exec_always --no-startup-id "tmux send-keys -t 0:0 'clear && neofetch 2>/dev/null' Enter"
 
@@ -543,11 +543,14 @@ assign [class="^libreoffice-startcenter$"] $ws4
 assign [class="^Filezilla$"] $ws5
 assign [class="^Deluge$"] $ws5
 assign [class="^Amule$"] $ws5
+assign [class="^SoulseetQT"] $ws6
 
-# 6: sys
+# 6: downloads/media
 assign [class="^Synaptic$"] $ws6
 assign [class="^Pcmanfm$"] $ws6
-assign [class="^SoulseetQT"] $ws6
+assign [class="^ncmpcpp"] $ws6
+exec --no-startup-id i3-msg '$ws6; exec $term ncmpcpp -s visualizer'
+exec --no-startup-id i3-msg '$ws6; exec $term ncmpcpp -s browser'
 
 # 7: var
 assign [class="^VirtualBox Manager$"] $ws7
@@ -559,6 +562,7 @@ assign [class="^ioquake3$"] $ws7
 assign [class="^Skype$"] $ws8
 assign [class="^TelegramDesktop$"] $ws8
 assign [class="^WhatsDesktop$"] $ws8
+assign [class="^Franz$"] $ws8
 
 # 9: www
 assign [class="^Firefox$"] $ws9
