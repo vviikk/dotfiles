@@ -1,3 +1,4 @@
+; vim: filetype=dosini
 [global]
     font = "Droid Sans 8"
     allow_markup = yes
