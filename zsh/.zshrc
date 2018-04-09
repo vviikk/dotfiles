@@ -67,6 +67,10 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# User pure-prompt https://github.com/sindresorhus/pure
+autoload -U promptinit; promptinit
+prompt pure
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
