@@ -7,7 +7,7 @@ export ZSH=/home/piggyslasher/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Run wal's escape sequences to set theme
 cat /home/piggyslasher/.cache/wal/sequences # run first to prevent flicker
@@ -61,8 +61,12 @@ cat /home/piggyslasher/.cache/wal/sequences # run first to prevent flicker
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
   git
+  zsh-256color
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
