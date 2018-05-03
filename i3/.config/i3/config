@@ -1,16 +1,22 @@
 # vim: filetype=i3
-#  _          _          ____            _ _   _     _       _ _____    ____             __ _
-# | |   _   _| | _____  / ___| _ __ ___ (_) |_| |__ ( )___  (_)___ /   / ___|___  _ __  / _(_) __ _
-# | |  | | | | |/ / _ \ \___ \| '_ ` _ \| | __| '_ \|// __| | | |_ \  | |   / _ \| '_ \| |_| |/ _` |
-# | |__| |_| |   <  __/  ___) | | | | | | | |_| | | | \__ \ | |___) | | |__| (_) | | | |  _| | (_| |
-# |_____\__,_|_|\_\___| |____/|_| |_| |_|_|\__|_| |_| |___/ |_|____/   \____\___/|_| |_|_| |_|\__, |
-                                                                                            # |___/
+#  __      ___ _      _____                                   _                 
+# \ \    / (_) |    |  __ \                                 (_)                
+#  \ \  / / _| | __ | |__) |__ _ _ __ ___   __ _ _ __  _   _ _  __ _ _ __ ___  
+#   \ \/ / | | |/ / |  _  // _` | '_ ` _ \ / _` | '_ \| | | | |/ _` | '_ ` _ \ 
+#    \  /  | |   <  | | \ \ (_| | | | | | | (_| | | | | |_| | | (_| | | | | | |
+#     \/   |_|_|\_\ |_|  \_\__,_|_| |_| |_|\__,_|_| |_|\__,_| |\__,_|_| |_| |_|
+#     ____   __  ____  ____  __  __    ____  ____          _/ |                
+#    (    \ /  \(_  _)(  __)(  )(  )  (  __)/ ___)        |__/                
+#     ) D ((  O ) )(   ) _)  )( / (_/\ ) _) \___ \
+#    (____/ \__/ (__) (__)  (__)\____/(____)(____/
+# 
+# 
 
-# This is Luke Smith's i3-gaps configuration file.
-# Me: http://lukesmith.xyz
-# Email: luke@lukesmith.xyz
-# YouTube: https://youtube.com/c/LukeSmithxyz
-# Github: https://github.com/LukeSmithxyz
+
+# This is Vik Ramanujam's i3-gaps configuration file.
+# Me: http://vik.ramanuj.am
+# Email: vik@ramanuj.am
+# Github: https://github.com/piggyslasher
 
 # Be sure that you have your $BROWSER environmental variable set to your favorite browser.
 # E.g., put `export BROWSER="firefox"` into your bash_profile
@@ -22,24 +28,24 @@ gaps inner 15
 gaps outer 15
 font pango:mono 9
 set $mod Mod4
-set $term --no-startup-id kitty
+set $term --no-startup-id kitty ~/.scripts/kitty-with-theme.sh
 set $video --no-startup-id bash video.sh
 set $stoprec --no-startup-id killall ffmpeg
 
-
+exec --no-startup-id wal -f ~/dotfiles/brogrammer.json -n -g
 # #---Starting External Scripts---# #
 #Increase key rate
 exec --no-startup-id xset r rate 300 50
 #Music player daemon:
 exec --no-startup-id mpd
 #Torrent daemon:
-exec --no-startup-id transmission-daemon
+# exec --no-startup-id transmission-daemon
 #Mount other drives:
 exec --no-startup-id sudo mount -a
 #Composite manager:
 exec --no-startup-id compton --xrender-sync-fence
 #Try to load VGA screen if available:
-exec --no-startup-id screen.sh v
+exec --no-startup-id ~/.screenlayout/sane.sh
 #Launch Polybar where appropriate:
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 #Add wallpaper:
@@ -115,28 +121,28 @@ set $beg --no-startup-id mpc seek 0%
 #set $beg --no-startup-id cmus-remote -k 00:00:00
 
 #FOR ALSA/AMIXER
-#set $inc --no-startup-id amixer sset Master 2%+
-#set $biginc --no-startup-id amixer sset Master 5%+
-#set $dec --no-startup-id amixer sset Master 2%-
-#set $bigdec --no-startup-id amixer sset Master 5%-
-#set $mute --no-startup-id amixer sset Master toggle
-#set $truemute --no-startup-id amixer sset Master mute
-#set $screencast  --no-startup-id bash screencast_alsa.sh
-#set $audio --no-startup-id bash audio_alsa.sh
+set $inc --no-startup-id amixer sset Master 2%+
+set $biginc --no-startup-id amixer sset Master 5%+
+set $dec --no-startup-id amixer sset Master 2%-
+set $bigdec --no-startup-id amixer sset Master 5%-
+set $mute --no-startup-id amixer sset Master toggle
+set $truemute --no-startup-id amixer sset Master mute
+set $screencast  --no-startup-id bash screencast_alsa.sh
+set $audio --no-startup-id bash audio_alsa.sh
 
 #For PULSEAUDIO/PAMIXER
-set $inc --no-startup-id pamixer --allow-boost -i 5
-set $biginc --no-startup-id pamixer --allow-boost -i 15
-set $dec --no-startup-id pamixer --allow-boost -d 5
-set $bigdec --no-startup-id pamixer --allow-boost -d 15
-set $mute --no-startup-id pamixer --allow-boost -t
-set $micmute --no-startup-id pamixer --allow-boost -t
-set $truemute --no-startup-id pamixer -m
-set $screencast  --no-startup-id bash screencast_pulse.sh
-set $audio --no-startup-id bash audio_pulse.sh
+#set $inc --no-startup-id pamixer --allow-boost -i 5
+#set $biginc --no-startup-id pamixer --allow-boost -i 15
+#set $dec --no-startup-id pamixer --allow-boost -d 5
+#set $bigdec --no-startup-id pamixer --allow-boost -d 15
+#set $mute --no-startup-id pamixer --allow-boost -t
+#set $micmute --no-startup-id pamixer --allow-boost -t
+#set $truemute --no-startup-id pamixer -m
+#set $screencast  --no-startup-id bash screencast_pulse.sh
+#set $audio --no-startup-id bash audio_pulse.sh
 
 # #---Basic Bindings---# #
-bindsym $mod+Return 		exec $term
+bindsym $mod+Return 		exec $term zsh
 bindsym $mod+Shift+Return 	exec $term nvim ~/dotfiles/i3/.config/i3/config
 
 bindsym $mod+Shift+space 	floating toggle
@@ -156,16 +162,16 @@ bindsym $mod+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; ex
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q			kill
-bindsym $mod+Shift+q		kill
+bindsym $mod+Shift+q	kill
 
 bindsym $mod+w			exec $term sudo wifi-menu
-bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
+bindsym $mod+Shift+w	exec --no-startup-id $BROWSER
 
 bindsym $mod+e			exec $term neomutt
-##bindsym $mod+Shift+e
+##bindsym $mod+Shift+a
 
 bindsym $mod+r 			exec $term ranger
-bindsym $mod+Shift+r		exec $term sudo ranger /
+bindsym $mod+Shift+r	exec $term sudo ~/.scripts/run_ranger.sh /
 
 bindsym $mod+t			split toggle
 bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
@@ -185,14 +191,17 @@ bindsym $mod+Shift+o		resize grow width 10 px or 10 ppt
 bindsym $mod+p			exec $pause
 bindsym $mod+Shift+p		exec mypaint
 
-bindsym $mod+a			[instance="math"] scratchpad show; [instance="math"] move position center
-bindsym $mod+Shift+a		exec $term ncpamixer
+# bindsym $mod+a			[instance="math"] scratchpad show; [instance="math"] move position center
+bindsym $mod+Shift+a		exec $term alsamixer
 
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
 bindsym $mod+d			exec rofi -show run
 bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
+
+# Run BMenu for easy config
+bindsym $mod+Control+b exec $term 'bmenu'
 
 bindsym $mod+f			fullscreen toggle
 ##bindsym $mod+Shift+f
@@ -265,7 +274,7 @@ set $ws2  "2: dev "
 set $ws3  "3: des "
 set $ws4  "4: doc "
 set $ws5  "5: net "
-set $ws6  "6: dow "
+set $ws6  "6: med "
 set $ws7  "7: var "
 set $ws8  "8: com "
 set $ws9  "9: www "
@@ -341,7 +350,7 @@ bindsym $mod+Control+r restart
 bindsym $mod+F3		exec --no-startup-id arandr
 bindsym $mod+F4		exec --no-startup-id sudo zzz
 bindsym $mod+F5		exec --no-startup-id $netrefresh
-bindsym $mod+F6		exec --no-startup-id $term transmission-remote-cli
+# bindsym $mod+F6		exec --no-startup-id $term transmission-remote-cli
 ##bindsym $mod+F7
 ##bindsym $mod+F8
 bindsym $mod+F9		exec --no-startup-id sudo mount -a
@@ -402,17 +411,17 @@ for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 5
 # Runs the tmuxinit script, which searches for an earlier tmux instance,
 # otherwise starts a new one (to prevent multiple dropdown sessions).
-exec --no-startup-id $term dropdown tmuxinit
+exec --no-startup-id kitty --name=dropdown ~/.scripts/tmuxinit
 # Runs neofetch on first tmux screen if installed.
 exec_always --no-startup-id "tmux send-keys -t 0:0 'clear && neofetch 2>/dev/null' Enter"
 
 # Then I have a window running R I use for basic arithmetic
 # I'll later bind this to mod+a.
-for_window [instance="math"] floating enable
-for_window [instance="math"] resize set 800 300
-for_window [instance="math"] move scratchpad
-for_window [instance="math"] border pixel 5
-exec --no-startup-id $term -n math -f mono:pixelsize=24 dropdowncalc
+# for_window [instance="math"] floating enable
+# for_window [instance="math"] resize set 800 300
+# for_window [instance="math"] move scratchpad
+# for_window [instance="math"] border pixel 5
+# exec --no-startup-id $term -n math -f mono:pixelsize=24 dropdowncalc
 
 # #---Extra XF86 Keys---# #
 # These are the extra media keys that some keyboards have.
@@ -493,3 +502,70 @@ bindsym XF86Documents		exec $term ranger ~/Documents
 ##bindsym XF86Battery		exec
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
+
+
+# -----------------------------------------------------------------------------
+# Assignments
+# -----------------------------------------------------------------------------
+
+# 1: >_
+assign [class="^URxvt$" instance="^rxvt-unicode$"] $ws1
+assign [class="^Kitty$"] $ws1
+assign [class="^kitty$"] $ws1
+
+# 2: dev
+assign [class="^Gvim$"] $ws2
+assign [class="^Emacs$"] $ws2
+assign [class="^Atom$"] $ws2
+assign [class="^Eclipse$"] $ws2
+assign [class="^QtCreator$"] $ws2
+assign [class="^Codeblocks$"] $ws2
+
+# 3: des
+assign [class="^Glade$"] $ws3
+assign [class="^Designer$"] $ws3
+assign [class="^Dia$"] $ws3
+assign [class="^Gimp$"] $ws3
+assign [class="^Inkscape$"] $ws3
+assign [class="^Blender$"] $ws3
+assign [class="^QCAD$"] $ws3
+assign [class="^LibreCAD$"] $ws3
+assign [class="^Freecad$"] $ws3
+
+# 4: doc
+assign [class="^Apvlv$"] $ws4
+assign [class="^Zathura$"] $ws4
+assign [class="^PdfMod$"] $ws4
+assign [class="^FBReader$"] $ws4
+assign [class="^libreoffice-startcenter$"] $ws4
+
+# 5: net
+assign [class="^Filezilla$"] $ws5
+assign [class="^Deluge$"] $ws5
+assign [class="^Amule$"] $ws5
+assign [class="^SoulseetQT"] $ws6
+
+# 6: downloads/media
+assign [class="^Synaptic$"] $ws6
+assign [class="^Pcmanfm$"] $ws6
+assign [class="^ncmpcpp"] $ws6
+exec --no-startup-id i3-msg '$ws6; exec $term ncmpcpp -s visualizer'
+exec --no-startup-id i3-msg '$ws6; exec $term ncmpcpp -s browser'
+
+# 7: var
+assign [class="^VirtualBox Manager$"] $ws7
+assign [class="^Wxmaxima$"] $ws7
+assign [class="^mpv$"] $ws7
+assign [class="^ioquake3$"] $ws7
+
+# 8: com
+assign [class="^Skype$"] $ws8
+assign [class="^TelegramDesktop$"] $ws8
+assign [class="^WhatsDesktop$"] $ws8
+assign [class="^Franz$"] $ws8
+
+# 9: www
+assign [class="^Firefox$"] $ws9
+assign [class="^Firefox-esr$"] $ws9
+assign [class="^Chromium$"] $ws9
+assign [class="^qutebrowser$"] $ws9

@@ -1,0 +1,12 @@
+
+mpd/\.config/mpd/database
+
+*.log
+
+mpd/\.config/mpd/log
+
+mpd/\.config/mpd/sticker\.sql
+
+mpd/\.config/mpd/state
+
+mpd/\.config/mpd/pid

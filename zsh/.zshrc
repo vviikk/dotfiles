@@ -2,12 +2,15 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/piggyslasher/.oh-my-zsh
+export ZSH=/home/piggyslasher/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
+
+# Run wal's escape sequences to set theme
+cat /home/piggyslasher/.cache/wal/sequences # run first to prevent flicker
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -58,11 +61,19 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
   git
+  zsh-256color
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# User pure-prompt https://github.com/sindresorhus/pure
+autoload -U promptinit; promptinit
+prompt pure
 
 # User configuration
 
@@ -106,7 +117,7 @@ export BROWSER="firefox"
 source ~/.term_aliases
 source ~/dotfiles/pomo/pomodoro/pomodoro.sh
 
-eval "$(ssh-agent -s)"
-alias sshi='ssh-add ~/.ssh/id_rsa'
+# eval "$(ssh-agent -s)"
+# alias sshi='ssh-add ~/.ssh/id_rsa'
 
 source ~/.scripts/z.sh
