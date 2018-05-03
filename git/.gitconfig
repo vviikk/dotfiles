@@ -1,42 +1,46 @@
-; user {{{
+[http]
+[https]
+[url "https://"]
+  insteadOf = git://
+[http]
+	proxy = http://bae_proxy:8080
+[https]
+	proxy = http://bae_proxy:8080
 [user]
 	email = piggyslasher@gmail.com
 	name = Vik Ramanujam
-; }}}
-; core {{{
-[core]
-	editor    = nvim
-	pager     = less -x4
-; }}}
-; alias {{{
+[credential]
+  helper = osxkeychain
 [alias]
-	lod       = log --oneline --decorate --all --graph
-	lol       = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %C(green)(%cr)'
-	loa       = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %C(green)(%cr) %C(cyan)[%an]'
-; }}}
-; color {{{
-[color]
-	branch    = auto
-	diff      = auto
-	status    = auto
-; }}}
-; color diff {{{
-[color "diff"]
-	meta      = yellow
-	frag      = cyan
-	old       = red
-	new       = green
-; }}}
-; color status {{{
-[color "status"]
-	added     = green
-	changed   = red
-	unmerged  = yellow
-	untracked = magenta
-; }}}
-; color branch {{{
-[color "branch"]
-	current   = green
-	local     = blue
-	remote    = magenta
-; }}}
+  ac = !git add . && git commit -am
+  am = commit --amend -C HEAD
+  delo = !sh -c \"git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d\"
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  la = "!git config -l | grep alias | cut -c 7-"
+  mergetest = "!f(){ git merge --no-commit --no-ff \"$1\"; git merge --abort; echo \"Merge aborted\"; };f "
+  new = checkout -b
+  po=!echo 'Ah push it' && git push origin && echo 'PUSH IT REAL GOOD'
+  pushitgood = push -u origin --all
+  pushup = !git push --set-upstream origin `git symbolic-ref --short HEAD`
+  br = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  rao = remote add origin
+  trim = !git fetch --prune && git branch --merged | grep -E -v \"^((\\* )|\\s*(develop|master)$)\" | xargs git branch -d
+  wdiff = diff --word-diff
+	pullup = "!f() { BRANCH=$(git symbolic-ref --short HEAD); if [ $# -eq 0 ] || [[ $BRANCH == $1 ]]; then git pull --ff-only; else git fetch origin $1:$1; fi; }; f"
+[core]
+	excludesfile = /Users/vramanujam/.gitignore_global
+	editor = nvim
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[commit]
+	template = /Users/vramanujam/.stCommitMsg
