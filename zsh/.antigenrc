@@ -1,0 +1,62 @@
+# vim: filetype=bash
+
+# Antigen loaded
+
+source /usr/local/share/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle Seinh/git-prune
+antigen bundle unixorn/git-extra-commands
+
+antigen bundle pip
+# antigen bundle lein
+antigen bundle command-not-found
+antigen bundle common-aliases
+antigen bundle compleat
+antigen bundle yarn
+antigen bundle osx
+antigen bundle z
+antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# Syntax highlighting bundle.
+antigen bundle zdharma/fast-syntax-highlighting
+
+# Fish-like auto suggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=13"
+antigen bundle zsh-users/zsh-autosuggestions
+
+# Node / NPM
+NVM_AUTO_USE=true
+antigen bundle lukechilds/zsh-better-npm-completion
+antigen bundle akoenig/npm-run.plugin.zsh
+antigen bundle lukechilds/zsh-nvm
+
+# Extra zsh completions
+antigen bundle zsh-users/zsh-completions
+
+# Docker support
+antigen bundle unixorn/docker-helpers.zshplugin
+
+# Producticity
+antigen bundle jedahan/ripz
+antigen bundle escalate/oh-my-zsh-proxy-plugin
+
+# Load the theme.
+antigen theme refined
+
+# Tell antigen that you're done.
+antigen apply
+
+# Setup zsh-autosuggestions
+# source /Users/nmn/.zsh-autosuggestions/autosuggestions.zsh
+
+# Enable autosuggestions automatically
+# zle-line-init() {
+#     zle autosuggest-start
+# }
+
+# zle -N zle-line-init
