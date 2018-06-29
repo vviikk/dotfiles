@@ -9,10 +9,6 @@ export BROWSER="firefox"
 
 export PATH=$PATH:/home/piggyslasher/.cargo/bin
 
-# antigen
-# source $HOME/.antigenrc
-
-
 # wal -fq ~/dotfiles/brogrammer.json
 neofetch
 
