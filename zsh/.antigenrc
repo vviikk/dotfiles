@@ -1,8 +1,9 @@
-# vim: filetype=bash
+# vim: filetype=sh
 
 # Antigen loaded
 
-source /usr/local/share/antigen/antigen.zsh
+source $HOME/.antigen/antigen.zsh
+# source /usr/local/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
