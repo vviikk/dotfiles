@@ -13,6 +13,7 @@ source $HOME/.bash_profile
 source $HOME/.antigenrc
 
 # wal -fq ~/dotfiles/brogrammer.json
+neofetch
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

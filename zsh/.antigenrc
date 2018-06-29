@@ -12,7 +12,7 @@ antigen bundle git
 antigen bundle Seinh/git-prune
 antigen bundle unixorn/git-extra-commands
 
-antigen bundle pip
+# antigen bundle pip
 # antigen bundle lein
 antigen bundle command-not-found
 antigen bundle common-aliases
@@ -43,10 +43,10 @@ antigen bundle unixorn/docker-helpers.zshplugin
 
 # Producticity
 antigen bundle jedahan/ripz
-antigen bundle escalate/oh-my-zsh-proxy-plugin
 
 # Load the theme.
-antigen theme refined
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 # Tell antigen that you're done.
 antigen apply
