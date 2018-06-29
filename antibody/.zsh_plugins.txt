@@ -1,0 +1,41 @@
+lukechilds/zsh-nvm
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+robbyrussell/oh-my-zsh folder:plugins/git
+Seinh/git-prune
+unixorn/git-extra-commands
+
+robbyrussell/oh-my-zsh folder:plugins/pip
+# lein
+robbyrussell/oh-my-zsh folder:plugins/command-not-found
+j-arnaiz/common-aliases
+mbrubeck/compleat
+robbyrussell/oh-my-zsh folder:plugins/yarn
+# robbyrussell/oh-my-zsh folder:plugins/aws
+
+# osx
+robbyrussell/oh-my-zsh folder:plugins/z
+zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# Syntax highlighting bundle.
+zdharma/fast-syntax-highlighting
+
+# Fish-like auto suggestions
+zsh-users/zsh-autosuggestions
+
+# Node / NPM
+lukechilds/zsh-better-npm-completion
+akoenig/npm-run.plugin.zsh
+
+# Extra zsh completions
+zsh-users/zsh-completions
+
+# Docker support
+unixorn/docker-helpers.zshplugin
+
+# Producticity
+molovo/tipz
+
+# Load the theme.
+mafredri/zsh-async
+sindresorhus/pure
