@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 cat $HOME/.cache/wal/sequences # run first to prevent flicker
 clear
 
@@ -12,16 +14,22 @@ export PATH=$PATH:/home/piggyslasher/.cargo/bin
 # wal -fq ~/dotfiles/brogrammer.json
 neofetch
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /Users/vramanujam/.travis/travis.sh ] && source /Users/vramanujam/.travis/travis.sh
 
-autoload -Uz compinit && compinit
 
 # source <(antibody init)
 # antibody bundle < ~/.zsh_plugins.txt
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=13"
+NVM_AUTO_USE=true
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
 source ~/.zsh_plugins.sh
 
-# source $HOME/test.sh
+bindkey -e
+
 source .bash_aliases
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
