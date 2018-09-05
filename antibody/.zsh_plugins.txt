@@ -11,6 +11,7 @@ robbyrussell/oh-my-zsh folder:plugins/command-not-found
 j-arnaiz/common-aliases
 mbrubeck/compleat
 robbyrussell/oh-my-zsh folder:plugins/yarn
+robbyrussell/oh-my-zsh folder:plugins/thefuck
 # robbyrussell/oh-my-zsh folder:plugins/aws
 
 # osx

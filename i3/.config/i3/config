@@ -1,16 +1,16 @@
 # vim: filetype=i3
-#  __      ___ _      _____                                   _                 
-# \ \    / (_) |    |  __ \                                 (_)                
-#  \ \  / / _| | __ | |__) |__ _ _ __ ___   __ _ _ __  _   _ _  __ _ _ __ ___  
-#   \ \/ / | | |/ / |  _  // _` | '_ ` _ \ / _` | '_ \| | | | |/ _` | '_ ` _ \ 
+#  __      ___ _      _____                                   _
+# \ \    / (_) |    |  __ \                                 (_)
+#  \ \  / / _| | __ | |__) |__ _ _ __ ___   __ _ _ __  _   _ _  __ _ _ __ ___
+#   \ \/ / | | |/ / |  _  // _` | '_ ` _ \ / _` | '_ \| | | | |/ _` | '_ ` _ \
 #    \  /  | |   <  | | \ \ (_| | | | | | | (_| | | | | |_| | | (_| | | | | | |
 #     \/   |_|_|\_\ |_|  \_\__,_|_| |_| |_|\__,_|_| |_|\__,_| |\__,_|_| |_| |_|
-#     ____   __  ____  ____  __  __    ____  ____          _/ |                
-#    (    \ /  \(_  _)(  __)(  )(  )  (  __)/ ___)        |__/                
+#     ____   __  ____  ____  __  __    ____  ____          _/ |
+#    (    \ /  \(_  _)(  __)(  )(  )  (  __)/ ___)        |__/
 #     ) D ((  O ) )(   ) _)  )( / (_/\ ) _) \___ \
 #    (____/ \__/ (__) (__)  (__)\____/(____)(____/
-# 
-# 
+#
+#
 
 
 # This is Vik Ramanujam's i3-gaps configuration file.
@@ -31,6 +31,7 @@ set $mod Mod4
 set $term --no-startup-id kitty ~/.scripts/kitty-with-theme.sh
 set $video --no-startup-id bash video.sh
 set $stoprec --no-startup-id killall ffmpeg
+set $loadnvm --no-startupid ~/.scripts/loadnvm
 
 exec --no-startup-id wal -f ~/dotfiles/brogrammer.json -n -g
 # #---Starting External Scripts---# #
@@ -42,6 +43,10 @@ exec --no-startup-id mpd
 # exec --no-startup-id transmission-daemon
 #Mount other drives:
 exec --no-startup-id sudo mount -a
+# alttab:
+exec_always --no-startup-id alttab
+
+exec_always pasystray
 #Composite manager:
 exec --no-startup-id compton --xrender-sync-fence
 #Try to load VGA screen if available:
@@ -57,6 +62,9 @@ exec --no-startup-id ~/.scripts/remaps
 exec --no-startup-id unclutter
 #Network Manager applet
 exec --no-startup-id nm-applet
+
+exec $loadnvm
+exec gnome-settings-daemon
 
 #OPENRC
 #set $shutdown sudo openrc-shutdown -p
@@ -121,25 +129,25 @@ set $beg --no-startup-id mpc seek 0%
 #set $beg --no-startup-id cmus-remote -k 00:00:00
 
 #FOR ALSA/AMIXER
-set $inc --no-startup-id amixer sset Master 2%+
-set $biginc --no-startup-id amixer sset Master 5%+
-set $dec --no-startup-id amixer sset Master 2%-
-set $bigdec --no-startup-id amixer sset Master 5%-
-set $mute --no-startup-id amixer sset Master toggle
-set $truemute --no-startup-id amixer sset Master mute
-set $screencast  --no-startup-id bash screencast_alsa.sh
-set $audio --no-startup-id bash audio_alsa.sh
+# set $inc --no-startup-id amixer sset Master 2%+
+ #set $biginc --no-startup-id amixer sset Master 5%+
+ #set $dec --no-startup-id amixer sset Master 2%-
+ #set $bigdec --no-startup-id amixer sset Master 5%-
+ #set $mute --no-startup-id amixer sset Master toggle
+ #set $truemute --no-startup-id amixer sset Master mute
+ #set $screencast  --no-startup-id bash screencast_alsa.sh
+ #set $audio --no-startup-id bash audio_alsa.sh
 
 #For PULSEAUDIO/PAMIXER
-#set $inc --no-startup-id pamixer --allow-boost -i 5
-#set $biginc --no-startup-id pamixer --allow-boost -i 15
-#set $dec --no-startup-id pamixer --allow-boost -d 5
-#set $bigdec --no-startup-id pamixer --allow-boost -d 15
-#set $mute --no-startup-id pamixer --allow-boost -t
-#set $micmute --no-startup-id pamixer --allow-boost -t
-#set $truemute --no-startup-id pamixer -m
-#set $screencast  --no-startup-id bash screencast_pulse.sh
-#set $audio --no-startup-id bash audio_pulse.sh
+set $inc --no-startup-id pamixer --allow-boost -i 5
+set $biginc --no-startup-id pamixer --allow-boost -i 15
+set $dec --no-startup-id pamixer --allow-boost -d 5
+set $bigdec --no-startup-id pamixer --allow-boost -d 15
+set $mute --no-startup-id pamixer --allow-boost -t
+set $micmute --no-startup-id pamixer --allow-boost -t
+set $truemute --no-startup-id pamixer -m
+set $screencast  --no-startup-id bash screencast_pulse.sh
+set $audio --no-startup-id bash audio_pulse.sh
 
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term zsh

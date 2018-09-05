@@ -9,7 +9,9 @@ export EDITOR="nvim"
 export TERMINAL="kitty"
 export BROWSER="firefox"
 
-export PATH=$PATH:/home/piggyslasher/.cargo/bin
+export PATH=$PATH:/home/piggyslasher/.cargo/bin:$HOME/.local/kitty.app/bin
+
+export PATH=$PATH:/usr/local/go/bin
 
 # wal -fq ~/dotfiles/brogrammer.json
 neofetch
@@ -26,10 +28,15 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
+
 source ~/.zsh_plugins.sh
+
+eval $(thefuck --alias f)
 
 bindkey -e
 
-source .bash_aliases
+source ~/.bash_aliases
+source ~/.bash_functions
 
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
