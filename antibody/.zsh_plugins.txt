@@ -1,5 +1,3 @@
-lukechilds/zsh-nvm
-
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 robbyrussell/oh-my-zsh folder:plugins/git
 Seinh/git-prune
@@ -19,7 +17,8 @@ robbyrussell/oh-my-zsh folder:plugins/z
 zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
 # Syntax highlighting bundle.
-zdharma/fast-syntax-highlighting
+# zdharma/fast-syntax-highlighting
+zsh-users/zsh-syntax-highlighting 
 
 # Fish-like auto suggestions
 zsh-users/zsh-autosuggestions
