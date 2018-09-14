@@ -16,10 +16,6 @@ robbyrussell/oh-my-zsh folder:plugins/thefuck
 robbyrussell/oh-my-zsh folder:plugins/z
 zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
-# Syntax highlighting bundle.
-# zdharma/fast-syntax-highlighting
-zsh-users/zsh-syntax-highlighting 
-
 # Fish-like auto suggestions
 zsh-users/zsh-autosuggestions
 
@@ -39,3 +35,7 @@ molovo/tipz
 # Load the theme.
 mafredri/zsh-async
 sindresorhus/pure
+
+# Syntax highlighting bundle.
+# zdharma/fast-syntax-highlighting
+# zsh-users/zsh-syntax-highlighting 
