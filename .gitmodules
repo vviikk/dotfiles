@@ -2,5 +2,5 @@
 	path = z
 	url = https://github.com/rupa/z
 [submodule "polybar-scripts/polybar-scripts"]
-	path = polybar-scripts/polybar-scripts
+	path = polybar-scripts
 	url = https://github.com/x70b1/polybar-scripts

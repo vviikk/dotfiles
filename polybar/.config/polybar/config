@@ -58,7 +58,7 @@ font-2 = Wuncon Siji:pixelsize=9;1
 modules-left = i3 mpd
 #modules-center = mpd
 #modules-right = volume wlan eth battery temperature date
-modules-right = home filesystem volume wlan eth battery temperature date
+modules-right = home filesystem volume wlan eth battery temperature xbacklight popup-calendar pulseaudio date info-redshift-temp
 
 tray-position = right
 tray-padding = 0
@@ -66,7 +66,7 @@ tray-padding = 0
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
-;wm-restack = i3
+wm-restack = i3
 
 ;override-redirect = true
 
@@ -79,6 +79,18 @@ scroll-down = i3wm-wsprev
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
+
+[module/github]
+type = internal/github
+
+; Accessing an access token stored in an environment variable
+token = ${env:GITHUB_ACCESS_TOKEN}
+
+; Whether empty notifications should be displayed or not
+empty-notifications = false
+
+; Number of seconds in between requests
+interval = 10
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -96,6 +108,46 @@ label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
 
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted = 🔇 muted
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
 [module/filesystem]
 type = internal/fs
 interval = 25
@@ -110,11 +162,12 @@ label-unmounted-foreground = ${colors.foreground-alt}
 type = internal/fs
 interval = 25
 
-mount-0 = /home/piggyslasher
+mount-0 = $HOME
 
 label-mounted = %{F#0a81f5}~%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+
 [module/bspwm]
 type = internal/bspwm
 
@@ -175,9 +228,14 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/popup-calendar]
 type = custom/script
-exec = ~/polybar-scripts/polybar-scripts/popup-calendar.sh
+exec = /home/piggyslasher/polybar-scripts/popup-calendar/popup-calendar.sh
 interval = 5
-click-left = ~/polybar-scripts/polybar-scripts/popup-calendar.sh --popup
+click-left = /home/piggyslasher/polybar-scripts/popup-calendar/popup-calendar.sh --popup
+
+[module/info-redshift-temp]
+type = custom/script
+exec = ~/polybar-scripts/info-redshift-temp/info-redshift-temp.sh
+interval = 5
 
 [module/mpd]
 type = internal/mpd

@@ -13,6 +13,10 @@ export PATH=$PATH:/home/piggyslasher/.cargo/bin:$HOME/.local/kitty.app/bin
 
 export PATH=$PATH:/usr/local/go/bin
 
+export PATH=$PATH:$HOME/Android/Sdk
+
+export BAT_THEME="Default"
+
 # wal -fq ~/dotfiles/brogrammer.json
 neofetch
 
