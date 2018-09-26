@@ -104,3 +104,4 @@ alias cat=bat
 alias cd='pushd'
 alias back='popd'
 alias flip='pushd_builtin'
+alias r='ranger'
