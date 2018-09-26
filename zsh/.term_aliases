@@ -1,5 +1,0 @@
-alias v=nvim
-alias vim=nvim
-alias gg=googler
-alias pbpaste='xclip -o'
-echo 'Loading aliases...DONE.'

@@ -11,9 +11,6 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-
 # copy the public key
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 

@@ -66,3 +66,37 @@ function notifyAndSay() {
   notify "$@"
 	say "$@"
 }
+
+# from https://github.com/westurner/dotfiles/tree/develop/scripts
+
+### pbcopy
+# Shim to support something like pbcopy on Linux
+
+function pbcopy {
+    __IS_MAC=${__IS_MAC:-$(test "$(uname -s)" == "Darwin" && echo 'true')}
+
+    if [ -n "${__IS_MAC}" ]; then
+        cat | /usr/bin/pbcopy
+        exit
+    else
+        # copy to selection buffer AND clipboard
+        cat | xclip -i -sel c -f | xclip -i -sel p
+        exit
+    fi
+}
+
+if [ -n "${BASH_SOURCE}" ] && [ "$BASH_SOURCE" == "$0" ]; then
+    pbcopy
+fi
+
+#!/usr/bin/env bash
+
+# Shim to support something like pbpaste on Linux
+__IS_MAC=${__IS_MAC:-$(test $(uname -s) == "Darwin" && echo 'true')}
+if [ -n "${__IS_MAC}" ]; then
+    /usr/bin/pbpaste ${@}
+    exit
+else
+    xclip -selection clipboard -o
+    exit
+fi
