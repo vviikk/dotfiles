@@ -100,3 +100,6 @@ else
     xclip -selection clipboard -o
     exit
 fi
+
+
+logoff() { gnome-session-quit --logout --no-prompt ; } # Log Out

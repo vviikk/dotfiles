@@ -48,7 +48,7 @@ exec_always --no-startup-id alttab
 
 exec --no-startup-id pasystray
 #Composite manager:
-exec --no-startup-id compton --xrender-sync-fence
+exec_always --no-startup-id compton
 #Try to load VGA screen if available:
 exec --no-startup-id ~/.screenlayout/sane.sh
 #Launch Polybar where appropriate:

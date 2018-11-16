@@ -1,0 +1,53 @@
+{
+  "alias_applications": true,
+  "alias_display_format": "{name} ({command})",
+  "exclude_items": ["node_modules"],
+  "filebrowser": "xdg-open",
+  "fileopener": "xdg-open",
+  "filter_binaries": false,
+  "follow_symlinks": false,
+  "frequently_used": 25,
+  "global_ignore_folders": ["node_modules", ".cache"],
+  "ignore_folders": [],
+  "include_applications": true,
+  "include_binaries": true,
+  "include_hidden_files": false,
+  "include_hidden_folders": false,
+  "include_items": [],
+  "indicator_alias": "",
+  "indicator_edit": "*",
+  "indicator_submenu": ">",
+  "menu": "rofi",
+  "menu_arguments": [
+    "-dmenu",
+    "-theme",
+    "fatmenu",
+    "-i",
+    "-case-sensitive"
+  ],
+  "password_helper": [
+    "zenity",
+    "--password",
+    "--title={prompt}"
+  ],
+  "path_aliasFile": "$HOME/.zsh_aliases",
+  "path_shellCommand": "$HOME/.dmenuEextended_shellCommand.sh",
+    "prompt": "Open:",
+    `"frequently_used": 25,
+    "scan_hidden_folders": false,
+    "terminal": "terminology",
+    "valid_extensions": [
+      "sh",
+      "py",
+      "svg",
+      "pdf",
+      ...........
+      "html",
+      "sublime-project"
+    ],
+    "watch_folders": [
+      "~/iitk",
+      "~/books"
+    ],
+    "webbrowser": "xdg-open"
+}

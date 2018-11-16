@@ -38,7 +38,6 @@ source ~/.zsh_plugins.sh
 
 # export NVM_DIR="$HOME/.nvm"
 function load_n() {
-  export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
   [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
 }
 
@@ -59,3 +58,4 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 [[ -e ~/.zshrc_extra ]] && source ~/.zshrc_extra
 
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
