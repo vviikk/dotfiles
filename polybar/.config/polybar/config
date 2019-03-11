@@ -228,9 +228,9 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/popup-calendar]
 type = custom/script
-exec = /home/piggyslasher/polybar-scripts/popup-calendar/popup-calendar.sh
+exec = ~/polybar-scripts/popup-calendar/popup-calendar.sh
 interval = 5
-click-left = /home/piggyslasher/polybar-scripts/popup-calendar/popup-calendar.sh --popup
+click-left = ~/polybar-scripts/popup-calendar/popup-calendar.sh --popup
 
 [module/info-redshift-temp]
 type = custom/script
@@ -360,7 +360,7 @@ interval = 5
 
 date = " %a, %b %d, %Y"
 
-click-left = /home/piggyslasher/polybar-scripts/popup-calendar/popup-calendar.sh --popup
+click-left = ~/polybar-scripts/popup-calendar/popup-calendar.sh --popup
 ;date-alt = " %a, %b %d, %Y at %I:%M%p"
 ;date-alt = " %Y-%m-%d"
 

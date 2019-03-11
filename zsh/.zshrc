@@ -32,6 +32,14 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
+# where is antibody keeping its stuff?
+ANTIBODY_HOME="$(antibody home)"
+
+# tell omz where it lives
+export ZSH="$ANTIBODY_HOME"/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh
+
+# quit bugging me!
+DISABLE_AUTO_UPDATE="true"
 
 source ~/.zsh_plugins.sh
 #

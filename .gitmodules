@@ -4,3 +4,6 @@
 [submodule "polybar-scripts/polybar-scripts"]
 	path = polybar-scripts
 	url = https://github.com/x70b1/polybar-scripts
+[submodule "polybar-scripts"]
+	path = polybar-scripts
+	url = https://github.com/x70b1/polybar-scripts
