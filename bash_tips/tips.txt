@@ -1,0 +1,5 @@
+[vim] zC would close all folds at the cursor)
+[vim] zc (close), zo (open), and za (toggle) operate on one level of folding, at the cursor.
+[vim] zr reduces folding by opening one more level
+[vim] Use zR to open all folds
+

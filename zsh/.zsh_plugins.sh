@@ -1,5 +1,7 @@
 source /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh/oh-my-zsh.sh
 fpath+=( /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh )
+source /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh/oh-my-zsh.sh
+fpath+=( /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh )
 source /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-Seinh-SLASH-git-prune/git-prune.plugin.zsh
 fpath+=( /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-Seinh-SLASH-git-prune )
 source /home/vik/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-unixorn-SLASH-git-extra-commands/git-extra-commands.plugin.zsh

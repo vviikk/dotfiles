@@ -1,0 +1,23 @@
+{
+  "javascript.suggestionActions.enabled": false,
+  "codeLens.enable": true,
+  "coc.preferences.diagnostic.displayByAle": true,
+  "eslint.filetypes": [
+    "javascriptreact",
+    "javascript"
+  ],
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "filetypes": [
+        "sh"
+      ],
+      "args": [
+        "start"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
+    }
+  }
+}

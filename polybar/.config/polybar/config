@@ -55,10 +55,10 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Wuncon Siji:pixelsize=9;1
 
 #modules-left = i3
-modules-left = i3 mpd
+modules-left = i3 mpd cmus
 #modules-center = mpd
 #modules-right = volume wlan eth battery temperature date
-modules-right = home filesystem volume wlan eth battery temperature xbacklight popup-calendar pulseaudio info-redshift-temp
+modules-right = cmus home filesystem volume wlan eth battery local-ip temperature xbacklight popup-calendar pulseaudio info-redshift-temp bus
 
 tray-position = right
 tray-padding = 0
@@ -225,6 +225,34 @@ label-visible-padding = ${self.label-focused-padding}
 label-urgent = %index% %name%
 label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+[module/local-ip]
+type=custom/script
+exec = "ip route get 1 | awk '{print $7}'"
+
+[module/bus]
+type=custom/script
+exec = ~/.config/polybar/bus.sh
+format-padding = 1
+
+[module/cmus]
+type = custom/script
+
+exec = ~/.config/polybar/cmus.sh
+exec-if = pgrep -x cmus
+interval = 1
+
+click-left = cmus-remote --next
+click-right = cmus-remote --prev
+click-middle = cmus-remote --pause
+scroll-up = cmus-remote --volume +5%
+scroll-down = cmus-remote --volume -5%
+
+label-font = 3
+format = <label>
+format-underline = ${colors.foreground-alt}
+label = %output%
+label-maxlen = 50
 
 [module/popup-calendar]
 type = custom/script

@@ -19,7 +19,8 @@
   rao = remote add origin
   trim = !git fetch --prune && git branch --merged | grep -E -v \"^((\\* )|\\s*(develop|master)$)\" | xargs git branch -d
   wdiff = diff --word-diff
-	pullup = "!f() { BRANCH=$(git symbolic-ref --short HEAD); if [ $# -eq 0 ] || [[ $BRANCH == $1 ]]; then git pull --ff-only; else git fetch origin $1:$1; fi; }; f"
+  pullup = "!f() { BRANCH=$(git symbolic-ref --short HEAD); if [ $# -eq 0 ] || [[ $BRANCH == $1 ]]; then git pull --ff-only; else git fetch origin $1:$1; fi; }; f"
+  conflicted = "!nvim +Conflicted"
 [core]
 	excludesfile = /Users/vramanujam/.gitignore_global
 	editor = nvim
@@ -38,3 +39,5 @@
 	; template = /Users/vramanujam/.stCommitMsg
 [credential]
 	helper = cache --timeout 3600
+[url "git@github.com:"]
+	insteadOf = https://github.com/

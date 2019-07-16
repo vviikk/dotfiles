@@ -1,5 +1,7 @@
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 robbyrussell/oh-my-zsh folder:plugins/git
+robbyrussell/oh-my-zsh folder:plugins/vagrant
+
 Seinh/git-prune
 unixorn/git-extra-commands
 
@@ -38,4 +40,4 @@ sindresorhus/pure
 
 # Syntax highlighting bundle.
 # zdharma/fast-syntax-highlighting
-zsh-users/zsh-syntax-highlighting 
+zsh-users/zsh-syntax-highlighting

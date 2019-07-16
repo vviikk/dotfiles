@@ -19,6 +19,10 @@ ghp() {
   git clone https://github.com/$1.git
 }
 
+if which ruby >/dev/null && which gem >/dev/null; then
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
 alias copyLast='echo !! | pbcopy'
 
 # ------------------------------------
@@ -102,3 +106,31 @@ alias cat=bat
 # alias back='popd'
 # alias flip='pushd_builtin'
 alias r='ranger'
+
+alias git=hub
+# eval "$(hub alias -s)"
+
+function gitsearch()
+{
+   searchCrit='stash\|'$1
+   git stash list | while IFS=: read STASH ETC; do echo "$STASH: $ETC"; git diff --stat $STASH~..$STASH --; done | grep -e $searchCrit
+}
+alias githunt=gitsearch
+
+# this is for even-better-ls
+LS_COLORS=$(ls_colors_generator)
+
+run_ls() {
+	ls-i --color=auto -w $(tput cols) "$@"
+}
+
+run_dir() {
+	dir-i --color=auto -w $(tput cols) "$@"
+}
+
+run_vdir() {
+	vdir-i --color=auto -w $(tput cols) "$@"
+}
+alias ls="run_ls"
+alias dir="run_dir"
+alias vdir="run_vdir"

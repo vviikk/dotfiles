@@ -149,6 +149,9 @@ set $truemute --no-startup-id pamixer -m
 set $screencast  --no-startup-id bash screencast_pulse.sh
 set $audio --no-startup-id bash audio_pulse.sh
 
+bindsym $mod+w exec --no-startup-id kitty --name 'pulsemixer' -e 'pulsemixer' ; mode "default"
+for_window [Title="pulsemixer"] floating enable
+
 # #---Basic Bindings---# #
 bindsym $mod+Return 		exec $term zsh
 bindsym $mod+Shift+Return 	exec $term nvim ~/dotfiles/i3/.config/i3/config
@@ -172,7 +175,7 @@ bindsym $mod+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; ex
 bindsym $mod+q			kill
 bindsym $mod+Shift+q	kill
 
-bindsym $mod+w			exec $term sudo wifi-menu
+# bindsym $mod+w			exec $term sudo wifi-menu
 bindsym $mod+Shift+w	exec --no-startup-id $BROWSER
 
 bindsym $mod+e			exec $term neomutt
