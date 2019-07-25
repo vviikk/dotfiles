@@ -47,9 +47,18 @@ git clone git:vviikk/dotfiles
 echo "Cloning your dotfiles...DONE"
 
 echo "Installing zsh, antibody"
+pushd $HOME/dotfiles/antibody
 sudo apt install -yq zsh && \
 	curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-cd $HOME/dotfiles/antibody
 ./install.sh
+popd
+echo "Installing zsh, antibody...DONE"
+
+echo "Installing SpaceNeoVim"
+pushd $HOME/dotfiles
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/tehnix/spaceneovim/master/install.sh)"
+cp ./nvim/init.vim $HOME/.config/nvim
+popd
+echo "Installing SpaceNeoVim...DONE"
 
 echo "DONE"
