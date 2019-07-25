@@ -48,5 +48,7 @@ echo "Cloning your dotfiles...DONE"
 echo "Installing zsh, antibody"
 sudo apt install -yq zsh && \
 	curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
+cd $HOME/dotfiles/antibody
+./install.sh
 
-
+echo "DONE"
