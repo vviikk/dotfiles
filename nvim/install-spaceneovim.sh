@@ -16,8 +16,6 @@ if [ -d "$CONFIG_DIR" ]; then
     # Neovim.
     mkdir -p "$CONFIG_DIR" \
 	  && mkdir -p "$CACHE_DIR" \
-	  # && echo ">>> Downloading configuration file" \
-	  # && curl -sSfL https://raw.githubusercontent.com/tehnix/spaceneovim/master/vimrc.sample.vim -o "$CONFIG_FILE" \
 	  && echo ">>> Copying your init.vim" \
       && cp ./.config/nvim/init.vim "$CONFIG_FILE" \
 	  && echo ">>> Creating autoload directory for spaceneovim" \
