@@ -7,6 +7,8 @@ sudo apt install -yq \
   ntfs-3g \
   font-manager \
   stow \
+  jq \
+  thefuck \
   software-properties-common
 
 echo "Setting up Neovim"
@@ -46,18 +48,26 @@ git clone git@vviikk/dotfiles
 git clone git:vviikk/dotfiles
 echo "Cloning your dotfiles...DONE"
 
+echo "Install Bat (cat with wings)!"
+# BAT_LATEST_RELEASE="$(curl -ksL 'https://api.github.com/repos/sharkdp/bat/releases/latest' | jq -r '.assets[0].browser_download_url')"
+BAT_LATEST_RELEASE="https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb"
+TEMP_DEB="$(mktemp)" &&
+  wget -O "$TEMP_DEB" "$BAT_LATEST_RELEASE" &&
+  sudo dpkg -i "$TEMP_DEB"
+rm -f "$TEMP_DEB"
+
 echo "Installing zsh, antibody"
 pushd $HOME/dotfiles/antibody
 sudo apt install -yq zsh && \
 	curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-./install.sh
+pwd
+cat ./install.sh | bash
 popd
 echo "Installing zsh, antibody...DONE"
 
 echo "Installing SpaceNeoVim"
-pushd $HOME/dotfiles
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/tehnix/spaceneovim/master/install.sh)"
-cp ./nvim/.config/nvim/init.vim $HOME/.config/nvim
+pushd $HOME/dotfiles/nvim
+./install-spaceneovim.sh
 popd
 echo "Installing SpaceNeoVim...DONE"
 
