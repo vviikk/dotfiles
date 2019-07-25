@@ -57,7 +57,7 @@ echo "Installing zsh, antibody...DONE"
 echo "Installing SpaceNeoVim"
 pushd $HOME/dotfiles
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/tehnix/spaceneovim/master/install.sh)"
-cp ./nvim/init.vim $HOME/.config/nvim
+cp ./nvim/.config/nvim/init.vim $HOME/.config/nvim
 popd
 echo "Installing SpaceNeoVim...DONE"
 
