@@ -3,6 +3,7 @@ cd $HOME
 sudo apt update
 
 sudo apt install -yq \
+  curl \
   ntfs-3g \
   font-manager \
   stow \
