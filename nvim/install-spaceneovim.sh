@@ -17,11 +17,11 @@ if [ -d "$CONFIG_DIR" ]; then
     mkdir -p "$CONFIG_DIR" \
 	  && mkdir -p "$CACHE_DIR" \
 	  && echo ">>> Copying your init.vim" \
-      && cp ./.config/nvim/init.vim "$CONFIG_FILE" \
+	  && cp $HOME/dotfiles/nvim/.config/nvim/init.vim "$CONFIG_FILE" \
 	  && echo ">>> Creating autoload directory for spaceneovim" \
 	  && mkdir -p "$AUTOLOAD_DIR" \
 	  && echo ">>> Downloading spaceneovim core" \
 	  && curl -sSfL https://raw.githubusercontent.com/tehnix/spaceneovim/master/autoload/spaceneovim.vim -o "$AUTOLOAD_FILE" \
 	  && echo ">>> Launching nvim" \
-	  && nvim --cmd "let g:dotspaceneovim_do_not_run_bootstrap=1" +SpaceNeovimRunInstallProcess && nvim \
+	  && nvim --cmd "let g:dotspaceneovim_do_not_run_bootstrap=1" +SpaceNeovimRunInstallProcess \
 	  && echo ">>> DONE!"

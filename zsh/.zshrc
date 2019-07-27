@@ -16,7 +16,7 @@ export PATH=$PATH:$HOME/Android/Sdk
 export BAT_THEME="Default"
 
 # wal -fq ~/dotfiles/brogrammer.json
-neofetch
+# neofetch
 
 [ -f /Users/vramanujam/.travis/travis.sh ] && source /Users/vramanujam/.travis/travis.sh
 

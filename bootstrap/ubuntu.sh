@@ -3,6 +3,10 @@ cd $HOME
 sudo apt update
 
 sudo apt install -yq \
+  build-essential \
+  curl \
+  file \
+  git \
   curl \
   ntfs-3g \
   font-manager \
@@ -18,6 +22,9 @@ sudo apt update
 sudo apt install -y neovim
 sudo apt install -y python-dev python-pip python3-dev python3-pip
 echo "Setting up Neovim...DONE"
+
+# yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+# brew install hub
 
 echo "Setting up NodeJS"
 curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - && \
@@ -56,19 +63,29 @@ TEMP_DEB="$(mktemp)" &&
   sudo dpkg -i "$TEMP_DEB"
 rm -f "$TEMP_DEB"
 
+echo "Install Kitty"
+  KITTY_TEMP_DEB="https://launchpad.net/ubuntu/+source/kitty/0.13.3-1/+build/16319847/+files/kitty_0.13.3-1_amd64.deb"
+TEMP_DEB="$(mktemp)" &&
+  wget -O "$TEMP_DEB" "$KITTY_TEMP_DEB" &&
+  sudo dpkg -i "$TEMP_DEB"
+rm -f "$TEMP_DEB"
+
 echo "Installing zsh, antibody"
-pushd $HOME/dotfiles/antibody
 sudo apt install -yq zsh && \
 	curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
-pwd
-cat ./install.sh | bash
-popd
+cat $HOME/dotfiles/antibody/install.sh | bash
+chsh -s $(which zsh)
 echo "Installing zsh, antibody...DONE"
 
 echo "Installing SpaceNeoVim"
-pushd $HOME/dotfiles/nvim
-./install-spaceneovim.sh
-popd
+$HOME/dotfiles/nvim/install-spaceneovim.sh
 echo "Installing SpaceNeoVim...DONE"
+
+echo "Installing pywal"
+sudo -H pip3 install pywal
+wal -f $HOME/dotfiles/brogrammer.json
+echo "Installing pywal...DONE"
+
+sudo apt install -yq kitty
 
 echo "DONE"

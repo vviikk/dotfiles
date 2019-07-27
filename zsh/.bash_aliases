@@ -117,20 +117,21 @@ function gitsearch()
 }
 alias githunt=gitsearch
 
-# this is for even-better-ls
-LS_COLORS=$(ls_colors_generator)
+# # this is for even-better-ls
+# LS_COLORS=$(ls_colors_generator)
 
-run_ls() {
-	ls-i --color=auto -w $(tput cols) "$@"
-}
+# run_ls() {
+# 	ls-i --color=auto -w $(tput cols) "$@"
+# }
 
-run_dir() {
-	dir-i --color=auto -w $(tput cols) "$@"
-}
+# run_dir() {
+# 	dir-i --color=auto -w $(tput cols) "$@"
+# }
 
-run_vdir() {
-	vdir-i --color=auto -w $(tput cols) "$@"
-}
-alias ls="run_ls"
-alias dir="run_dir"
-alias vdir="run_vdir"
+# run_vdir() {
+# 	vdir-i --color=auto -w $(tput cols) "$@"
+# }
+# alias ls="run_ls"
+# alias dir="run_dir"
+# alias vdir="run_vdir"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
