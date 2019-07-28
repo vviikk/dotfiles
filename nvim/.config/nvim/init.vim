@@ -87,7 +87,6 @@ function! UserInit()
   " This block is called at the very startup of Spaceneovim initialization
   " before layers configuration.
   let g:polyglot_disabled = ['css', 'js', 'jsx']
-
 endfunction
 
 function! UserConfig()
@@ -246,8 +245,6 @@ function! UserConfig()
 
   " *.js treated as *.jsx
   let g:jsx_ext_required = 1
-
-
 
   "This unsets the "last search pattern" register by hitting return
   nnoremap <CR> :noh<CR><CR>
