@@ -66,7 +66,7 @@ function! Layers()
   ExtraPlugin 'edkolev/tmuxline.vim'
   ExtraPlugin 'amadeus/vim-jsx'
   ExtraPlugin 'rhysd/vim-grammarous'
-  ExtraPlugin 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  ExtraPlugin 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
   " Syntax highlighting and support for styled components
   ExtraPlugin 'styled-components/vim-styled-components', { 'branch': 'develop' }
   ExtraPlugin 'szw/vim-g'
@@ -77,10 +77,13 @@ function! Layers()
   ExtraPlugin 'plasticboy/vim-markdown'
   ExtraPlugin 'JamshedVesuna/vim-markdown-preview'
 
+  ExtraPlugin 'thinca/vim-localrc'
   ExtraPlugin 'vim-scripts/ScreenShot'
   ExtraPlugin 'chemzqm/vim-jsx-improve'
   ExtraPlugin 'heavenshell/vim-jsdoc'
   ExtraPlugin 'christoomey/vim-conflicted'
+  ExtraPlugin 'ruanyl/coverage.vim'
+  ExtraPlugin 'mgedmin/coverage-highlight.vim'
 endfunction
 
 function! UserInit()
@@ -118,6 +121,7 @@ function! UserConfig()
   " ctrlp glyphs
   let g:webdevicons_enable_ctrlp = 1
   let g:webdevicons_enable_nerdtree = 1
+  let g:localrc_filename = '.init.local.vim'
 
   syntax match spaces /    / conceal cchar=  "Don't forget the space after cchar!
   set concealcursor=nvi
