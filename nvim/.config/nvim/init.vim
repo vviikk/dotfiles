@@ -84,6 +84,8 @@ function! Layers()
   ExtraPlugin 'christoomey/vim-conflicted'
   ExtraPlugin 'ruanyl/coverage.vim'
   ExtraPlugin 'mgedmin/coverage-highlight.vim'
+  ExtraPlugin 'severin-lemaignan/vim-minimap'
+  ExtraPlugin 'majutsushi/tagbar'
 endfunction
 
 function! UserInit()
@@ -318,6 +320,7 @@ function! UserConfig()
   inoremap <silent><expr> <c-space> coc#refresh()
 
   nnoremap FF :ALEFix eslint<Enter>
+  autocmd FileType gitcommit nmap <buffer> UU :Git checkout -- <C-r><C-g><CR>
 endfunction
 
 " Do NOT remove these calls!
