@@ -1,0 +1,56 @@
+Toolbar {
+    visibility: collapse !important;
+}
+
+/* For only Tree Style Tab sidebar #1397 */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+    display: none !important;
+}
+
+
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/*
+ * Hide tabs on Linux, Windows, any with titlebar.
+ * Doesn't work right with MacOS, use the other one instead
+ *
+ * Contributor(s): Isaac-Newt
+ */
+
+#TabsToolbar {
+  visibility: collapse !important;
+}
+
+
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar {
+  opacity: 0;
+  pointer-events: none;
+}
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+  visibility: collapse !important;
+}
+
+
+#sidebar-header {
+  display: none;
+}
+
+#sidebar:not(:hover) scrollbar { display:none !important; }
+
+#sidebar {
+  min-width: 50px !important;
+}
+
+.tab:not(:hover) .closebox {
+  display: none;
+}
+
+:root.left .tab .twisty {
+  order: 10000;
+}
+:root.left .tab .closebox {
+  order: -1;
+}
