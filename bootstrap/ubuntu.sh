@@ -63,12 +63,12 @@ TEMP_DEB="$(mktemp)" &&
   sudo dpkg -i "$TEMP_DEB"
 rm -f "$TEMP_DEB"
 
-echo "Install Kitty"
-  KITTY_TEMP_DEB="https://launchpad.net/ubuntu/+source/kitty/0.13.3-1/+build/16319847/+files/kitty_0.13.3-1_amd64.deb"
-TEMP_DEB="$(mktemp)" &&
-  wget -O "$TEMP_DEB" "$KITTY_TEMP_DEB" &&
-  sudo dpkg -i "$TEMP_DEB"
-rm -f "$TEMP_DEB"
+# echo "Install Kitty"
+#   KITTY_TEMP_DEB="https://launchpad.net/ubuntu/+source/kitty/0.13.3-1/+build/16319847/+files/kitty_0.13.3-1_amd64.deb"
+# TEMP_DEB="$(mktemp)" &&
+#   wget -O "$TEMP_DEB" "$KITTY_TEMP_DEB" &&
+#   sudo dpkg -i "$TEMP_DEB"
+# rm -f "$TEMP_DEB"
 
 echo "Installing zsh, antibody"
 sudo apt install -yq zsh && \
@@ -86,6 +86,6 @@ sudo -H pip3 install pywal
 wal -f $HOME/dotfiles/brogrammer.json
 echo "Installing pywal...DONE"
 
-sudo apt install -yq kitty
+# sudo apt install -yq kitty
 
 echo "DONE"
