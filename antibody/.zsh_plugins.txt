@@ -1,29 +1,29 @@
+# vim: set ft=bash:
+
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
-robbyrussell/oh-my-zsh folder:plugins/git
-robbyrussell/oh-my-zsh folder:plugins/vagrant
+# robbyrussell/oh-my-zsh folder:plugins/git
+# robbyrussell/oh-my-zsh folder:plugins/vagrant
 
-Seinh/git-prune
-unixorn/git-extra-commands
+# Seinh/git-prune
+# unixorn/git-extra-commands
 
-robbyrussell/oh-my-zsh folder:plugins/pip
+# robbyrussell/oh-my-zsh folder:plugins/pip
 # lein
-robbyrussell/oh-my-zsh folder:plugins/command-not-found
+# robbyrussell/oh-my-zsh folder:plugins/command-not-found
 j-arnaiz/common-aliases
 mbrubeck/compleat
-robbyrussell/oh-my-zsh folder:plugins/yarn
-robbyrussell/oh-my-zsh folder:plugins/thefuck
+# robbyrussell/oh-my-zsh folder:plugins/yarn
+# robbyrussell/oh-my-zsh folder:plugins/thefuck
 # robbyrussell/oh-my-zsh folder:plugins/aws
 
 # osx
-robbyrussell/oh-my-zsh folder:plugins/z
-zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
 # Fish-like auto suggestions
 zsh-users/zsh-autosuggestions
 
 # Node / NPM
-lukechilds/zsh-better-npm-completion
 akoenig/npm-run.plugin.zsh
+lukechilds/zsh-nvm
 
 # Extra zsh completions
 zsh-users/zsh-completions
@@ -39,5 +39,5 @@ mafredri/zsh-async
 sindresorhus/pure
 
 # Syntax highlighting bundle.
-# zdharma/fast-syntax-highlighting
+zdharma/fast-syntax-highlighting
 zsh-users/zsh-syntax-highlighting

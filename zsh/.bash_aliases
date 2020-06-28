@@ -14,6 +14,7 @@ alias rm='rm -v'
 # copy the public key
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
+eval $(thefuck --alias f)
 
 ghp() {
   git clone https://github.com/$1.git
