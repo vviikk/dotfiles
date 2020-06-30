@@ -1,4 +1,4 @@
-# [ -f $HOME/.cache/wal/sequences ] && cat $HOME/.cache/wal/sequences && clear
+[ -f $HOME/.cache/wal/sequences ] && cat $HOME/.cache/wal/sequences
 
 bindkey "^?" backward-delete-char
 bindkey -v
