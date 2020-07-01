@@ -13,3 +13,4 @@ mpd/\.config/mpd/state
 
 mpd/\.config/mpd/pid
 .DS_Store
+mediabox/.env
