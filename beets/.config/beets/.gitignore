@@ -1,0 +1,5 @@
+!*.yaml
+beets_env/
+import.log
+library.db
+state.pickle*.json
