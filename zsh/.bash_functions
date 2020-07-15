@@ -103,3 +103,16 @@ fi
 
 
 logoff() { gnome-session-quit --logout --no-prompt ; } # Log Out
+
+
+function sshake () {
+  echo $1
+  echo $2
+}
+
+
+function print_my_input() {
+ echo 'Your input: ' $1
+}
+
+echo 'Bash function sourced'
