@@ -1,13 +1,4 @@
-#create a .evn file in the same folder as this file and change the variables.
-# MOUNT_POINT=/tmp/
-# VPN_PROVIDER=changeme
-# VPN_CONFIG=changeme
-# VPN_USERNAME=changeme
-# VPN_PASSWORD=changeme
-#
-#
 version: "3.2"
-
 services:
   portainer:
     container_name: portainer
@@ -20,33 +11,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${MOUNT_POINT}/config/portainer:/data
-  pihole:
-    container_name: pihole
-    image: pihole/pihole:latest
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 67:67/udp
-      - 80:80/tcp
-      - 443:443/tcp
-    environment:
-      TZ: ${TZ}
-      WEBPASSWORD: Password
-    # Volumes store your data between container upgrades
-    volumes:
-       - ${MOUNT_POINT}/config/pihole/etc/:/etc/pihole/
-       - ${MOUNT_POINT}/config/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
-    dns:
-      - 127.0.0.1
-      - 1.1.1.1
-    # Recommended but not required (DHCP needs NET_ADMIN)
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-    
-    restart: always
   transmission:
     container_name: transmission
     volumes:
-      - '~/mediabox/transmission:/data'
+      - '${MOUNT_POINT_TRANSMISSION}:/data'
       - '/etc/localtime:/etc/localtime:ro'
     cap_add:
       - NET_ADMIN
@@ -60,50 +28,27 @@ services:
       - LOCAL_NETWORK=192.168.0.0/16
     ports:
       - 9091:9091 # Transmission
-      - 7878:7878
+      - 7878:7878 # Radarr
       - 9117:9117 # Jackett
-      - 8989:8989
+      - 8989:8989 # Radarr
+      - 8686:8686 # Lidarr
+      - 8085:8085 # HTPC Manager
     image: 'haugene/transmission-openvpn:latest-armhf'
     restart: unless-stopped
-    #  zerotier:
-    #    image: croc/zerotier
-    #    environment:
-    #      - NETWORK_ID=d3ecf5726d18ad18
-    ##      - ROUTES=10.10.12.0/23,10.147.20.115;10.10.14.0/23,10.147.20.220
-    #    # volumes:
-    #      # - './config/route.list:/config/route.list:ro'
-    #    networks:
-    #      - plexnet
-    #    privileged: true
-    #    restart: always
-    #  organizr:
-    #    image: linuxserver/organizr
-    #    container_name: organizr
-    #    environment:
-    #      - PUID=1000
-    #      - PGID=1000
-    #      - TZ=${TZ}
-    #    volumes:
-    #      - ${MOUNT_POINT}/organizer-config:/config:cached
-    #    ports:
-    #      - 9983:80
-    #    networks:
-    #      - plexnet
-    #    restart: unless-stopped
   radarr:
     image: linuxserver/radarr
     container_name: radarr
     restart: always
     network_mode: service:transmission
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=${PGID}
+      - PUID=${PUID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/transmission:/data:cached
-      - ${MOUNT_POINT}/radarr-config:/config:cached
-      - ${MOUNT_POINT}/transmission/completed:/downloads:cached
-      - ${MOUNT_POINT}/media/movies:/movies:cached
+      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
+      - ${MOUNT_POINT}/config/radarr:/config
+      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
     restart: always
   jackett:
     image: linuxserver/jackett
@@ -111,12 +56,12 @@ services:
     restart: always
     network_mode: service:transmission
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=${PGID}
+      - PUID=${PUID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/jackett/config:/config
-      - ${MOUNT_POINT}/jackett/downloads:/downloads
+      - ${MOUNT_POINT}/config/jackett/:/config
+      - ${MOUNT_POINT}/data/jackett/blackhole/:/downloads
     restart: unless-stopped
   sonarr:
     image: linuxserver/sonarr
@@ -124,66 +69,109 @@ services:
     restart: always
     network_mode: service:transmission
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=${PGID}
+      - PUID=${PUID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/sonarr/config:/config:cached
-      - ${MOUNT_POINT}/media/tv:/tv:cached
-      - ${MOUNT_POINT}/transmission/completed:/downloads:cached
-      - ${MOUNT_POINT}/transmission:/data:cached
+      - ${MOUNT_POINT}/config/sonarr:/config
+      - ${MOUNT_POINT_TV}:/tv:cached
+      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
+      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
     restart: unless-stopped
-    #  emby:
-    #    image: emby/embyserver
-    #    container_name: emby
-    #    networks:
-    #      - plexnet
-    #    environment:
-    #      - UID=1000
-    #      - GID=100
-    #      - GIDLIST=100,44
-    #    # devices:
-    #      # - /dev/dri/renderD128
-    #    volumes:
-    #      - ${MOUNT_POINT}/emby/config:/config:cached
-    #      - ${MOUNT_POINT}/media/movies:/movies:cached
-    #      - ${MOUNT_POINT}/media/tv:/tv:cached
-    #    ports:
-    #      - 8096:8096
-    #      - 8920:8920
-    #    restart: unless-stopped
-    #  bazarr:
-    #    image: linuxserver/bazarr
-    #    container_name: bazarr
-    #    environment:
-    #      - PUID=1001
-    #      - PGID=1001
-    #      - TZ=${TZ}
-    #    networks:
-    #      - plexnet
-    #    volumes:
-    #      - ${MOUNT_POINT}/bazarr/config:/config:cached
-    #      - ${MOUNT_POINT}/media/movies:/movies:cached
-    #      - ${MOUNT_POINT}/media/tv:/tv:cached
-    #    ports:
-    #      - 6767:6767
-    #    deploy:
-    #      resources:
-    #        limits:
-    #          memory: 4096M
-    #    restart: unless-stopped
-    #  daapd:
-    #    image: linuxserver/daapd
-    #    container_name: daapd
-    #    network_mode: host
-    #    environment:
-    #      - PUID=1000
-    #      - PGID=1000
-    #      - TZ=${TZ}
-    #    volumes:
-    #      - ${MOUNT_POINT}/config/daapd:/config:cached
-    #      - ${MOUNT_POINT}/media/music:/music:cached
-    #    restart: unless-stopped
+  emby:
+    image: emby/embyserver_arm32v7
+    container_name: emby
+    environment:
+      - UID=1000
+      - GID=100
+      - GIDLIST=100,44
+    # devices:
+      # - /dev/dri/renderD128
+    networks:
+      - plexnet
+    volumes:
+      - ${MOUNT_POINT}/config/emby:/config:cached
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
+      - ${MOUNT_POINT_TV}:/tv:cached
+    ports:
+      - 8096:8096
+      - 8920:8920
+    restart: unless-stopped
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    networks:
+      - plexnet
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    networks:
+      - plexnet
+    volumes:
+      - ${MOUNT_POINT}/config/bazarr:/config:cached
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
+      - ${MOUNT_POINT_TV}:/tv:cached
+    ports:
+      - 6767:6767
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+    restart: unless-stopped
+  daapd:
+    image: linuxserver/daapd
+    container_name: daapd
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${MOUNT_POINT}/config/daapd:/config:cached
+      - ${MOUNT_POINT_MUSIC}:/music:cached
+    restart: unless-stopped
+  # lidarr:
+  #   image: linuxserver/lidarr
+  #   container_name: lidarr
+  #   network_mode: service:transmission
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - UMASK_SET=022 #optional
+  #   volumes:
+  #     - ${MOUNT_POINT}/config/lidarr:/config
+  #     - ${MOUNT_POINT_MUSIC}:/music
+  #     - ${MOUNT_POINT_DOWNLOADS}/data/lidarr/downloads:/downloads
+  #   restart: unless-stopped
+  htpcmanager:
+    image: linuxserver/htpcmanager
+    container_name: htpcmanager
+    network_mode: service:transmission
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${MOUNT_POINT}/config/htpcmanager:/config
+    restart: unless-stopped
+  soulseek:
+    container_name: soulseek
+    restart: always
+    volumes:
+      - ${MOUNT_POINT}/config/soulseek:/data/.SoulseekQt
+      - ${MOUNT_POINT_UNSORTED}/music:/data/Soulseek Downloads
+      - ${MOUNT_POINT_DOWNLOADS}/data/soulseek/logs:/data/Soulseek Chat Logs
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - resize=scale
+      - resolution=1280x720
+    ports:
+      - '6080:6080'
+    image: realies/soulseek
 networks:
   plexnet:
     driver: bridge
+
