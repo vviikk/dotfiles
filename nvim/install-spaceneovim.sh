@@ -5,7 +5,7 @@ CONFIG_FILE="$HOME/.config/nvim/init.vim"
 AUTOLOAD_DIR="$HOME/.config/nvim/autoload"
 AUTOLOAD_FILE="$HOME/.config/nvim/autoload/spaceneovim.vim"
 CACHE_DIR="$HOME/.cache/nvim"
-
+DOTFILES_DIR=$HOME/.dotfiles
 # Backup exisiting configuration.
 if [ -d "$CONFIG_DIR" ]; then
     backup_time=$(date +'%Y-%m-%d.%H-%M-%S')
@@ -17,7 +17,7 @@ if [ -d "$CONFIG_DIR" ]; then
     mkdir -p "$CONFIG_DIR" \
 	  && mkdir -p "$CACHE_DIR" \
 	  && echo ">>> Copying your init.vim" \
-	  && cp $HOME/dotfiles/nvim/.config/nvim/init.vim "$CONFIG_FILE" \
+	  && cp $DOTFILES_DIR/nvim/.config/nvim/init.vim "$CONFIG_FILE" \
 	  && echo ">>> Creating autoload directory for spaceneovim" \
 	  && mkdir -p "$AUTOLOAD_DIR" \
 	  && echo ">>> Downloading spaceneovim core" \
