@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ###################
 # Simple script to translate what's selected on your linux machine
 # Author: Vik Ramanujam (Github: @vviikk)
@@ -5,20 +7,18 @@
 #  https://github.com/soimort/translate-shell
 #  xdotool, xsel
 #  
-#  Instructions: Download this file, chmod +x it, sudo move it to /usr/bin
-#                and use your desktop environment to bind it to a keybinding
-#                For example, I use Supet + T to fire `translate -a` when I'm
-#                typing something into an input box (chat, whatsapp...)
-#                and the text I have typed is translated to Spanish.
-#                And I use Super+Shift+T to fire `translate -n` to display
-#                a translation as a notification
+# Instructions: Download this file, chmod +x it, sudo move it to /usr/bin
+#               and use your desktop environment to bind it to a keybinding
+#               For example, I use Supet + T to fire `translate -a` when I'm
+#               typing something into an input box (chat, whatsapp...)
+#               and the text I have typed is translated to Spanish.
+#               And I use Super+Shift+T to fire `translate -n` to display
+#               a translation as a notification
 ##################
-#!/usr/bin/env bash
-while getopts n:p:a FLAG
+while getopts na FLAG
 do
     case "${FLAG}" in
         n) NOTIFY="TRUE";;
-        p) PASTE="TRUE";;
         a) SELECT_ALL="TRUE";;
     esac
 done
