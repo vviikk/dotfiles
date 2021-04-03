@@ -130,7 +130,7 @@ services:
       - ${MOUNT_POINT_MOVIES}:/movies:cached
       - ${MOUNT_POINT_TV}:/tv:cached
       - ${MOUNT_POINT_BOOKS}:/books:cached
-      - /tmp:/config/data/transcoding-temp/transcodes
+      - /dev/shm:/config/data/transcoding-temp/transcodes
     ports:
       - 8096:8096
       - 8920:8920
