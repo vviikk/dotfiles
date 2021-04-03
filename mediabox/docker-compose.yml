@@ -106,7 +106,7 @@ services:
     #     - 8920:8920
     #   restart: unless-stopped
   jellyfin:
-    image: linuxserver/jellyfin:arm32v7-latest
+    image: linuxserver/jellyfin
     container_name: jellyfin
     environment:
       - UID=1000
@@ -117,7 +117,11 @@ services:
       - PUID=${PUID}
       - TZ=${TZ}
     devices:
-      - /dev/vchiq:/dev/vchiq
+      - /dev/vchiq:/dev/vchiq #optional
+      # - /dev/video10:/dev/video10 #optional
+      # - /dev/video11:/dev/video11 #optional
+      # - /dev/video12:/dev/video12 #optional
+      - /dev/vcsm-cma:/dev/vcsm
     network_mode: host
     volumes:
       - /opt/vc/lib:/opt/vc/lib
@@ -126,7 +130,7 @@ services:
       - ${MOUNT_POINT_MOVIES}:/movies:cached
       - ${MOUNT_POINT_TV}:/tv:cached
       - ${MOUNT_POINT_BOOKS}:/books:cached
-      - /dev/shm:/config/data/transcoding-temp/transcodes
+      - /tmp:/config/data/transcoding-temp/transcodes
     ports:
       - 8096:8096
       - 8920:8920
