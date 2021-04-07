@@ -45,7 +45,8 @@ def print_help():
     print("Usage: " + sys.argv[0] + " [-p path/to/pid.file]")
     print("")
     print("Options:")
-    print("    -p path/to/pid.file   Saves the PID for this program in the filename specified")
+    print("    -p path/to/pid.file   \
+        Saves the PID for this program in the filename specified")
     print("")
 
 
