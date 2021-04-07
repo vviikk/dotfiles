@@ -10,7 +10,7 @@ services:
       - 8000:8000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${MOUNT_POINT}/config/portainer:/data
+      - ${MOUNT_POINT_CONFIG}/portainer:/data
   transmission:
     container_name: transmission
     volumes:
@@ -33,6 +33,8 @@ services:
       - 8989:8989 # Radarr
       - 8686:8686 # Lidarr
       - 8085:8085 # HTPC Manager
+      - 6767:6767 # Bazaar
+      - 5299:5299 # LazyLibrarian
     image: 'haugene/transmission-openvpn:latest-armhf'
     restart: unless-stopped
   radarr:
@@ -46,7 +48,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${MOUNT_POINT_TRANSMISSION}:/data:cached
-      - ${MOUNT_POINT}/config/radarr:/config
+      - ${MOUNT_POINT_CONFIG}/radarr:/config
       - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
       - ${MOUNT_POINT_MOVIES}:/movies:cached
     restart: always
@@ -60,7 +62,7 @@ services:
       - PUID=${PUID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/config/jackett/:/config
+      - ${MOUNT_POINT_CONFIG}/jackett/:/config
       - ${MOUNT_POINT}/data/jackett/blackhole/:/downloads
     restart: unless-stopped
   sonarr:
@@ -73,26 +75,62 @@ services:
       - PUID=${PUID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/config/sonarr:/config
+      - ${MOUNT_POINT_CONFIG}/sonarr:/config
       - ${MOUNT_POINT_TV}:/tv:cached
       - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
       - ${MOUNT_POINT_TRANSMISSION}:/data:cached
     restart: unless-stopped
-  emby:
-    image: emby/embyserver_arm32v7
-    container_name: emby
+    # emby:
+    #   image: linuxserver/emby:beta
+    #   container_name: emby
+    #   environment:
+    #     - UID=1000
+    #     - GID=1000
+    #     - GIDLIST=100,44
+    #     - UMASK_SET=022
+    #     - PGID=${PGID}
+    #     - PUID=${PUID}
+    #     - TZ=${TZ}
+    #   devices:
+    #     - /dev/vchiq:/dev/vchiq
+    #   network_mode: host
+    #   volumes:
+    #     - /opt/vc/lib:/opt/vc/lib
+    #     - ${MOUNT_POINT_CONFIG}/emby:/config:cached
+    #     - ${MOUNT_POINT_MOVIES}:/movies:cached
+    #     - ${MOUNT_POINT_TV}:/tv:cached
+    #     - ${MOUNT_POINT_BOOKS}:/books:cached
+    #     - /dev/shm:/config/data/transcoding-temp/transcodes
+    #   ports:
+    #     - 8097:8097
+    #     - 8920:8920
+    #   restart: unless-stopped
+  jellyfin:
+    image: linuxserver/jellyfin
+    container_name: jellyfin
     environment:
       - UID=1000
       - GID=100
       - GIDLIST=100,44
-    # devices:
-      # - /dev/dri/renderD128
-    networks:
-      - plexnet
+      - UMASK_SET=022
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+    devices:
+      - /dev/vchiq:/dev/vchiq #optional
+      # - /dev/video10:/dev/video10 #optional
+      # - /dev/video11:/dev/video11 #optional
+      # - /dev/video12:/dev/video12 #optional
+      - /dev/vcsm-cma:/dev/vcsm
+    network_mode: host
     volumes:
-      - ${MOUNT_POINT}/config/emby:/config:cached
+      - /opt/vc/lib:/opt/vc/lib
+      - ${MOUNT_POINT_CONFIG}/jellyfin:/config:cached
+      - ${MOUNT_POINT_MUSIC}:/music:cached
       - ${MOUNT_POINT_MOVIES}:/movies:cached
       - ${MOUNT_POINT_TV}:/tv:cached
+      - ${MOUNT_POINT_BOOKS}:/books:cached
+      - /dev/shm:/config/data/transcoding-temp/transcodes
     ports:
       - 8096:8096
       - 8920:8920
@@ -100,51 +138,20 @@ services:
   bazarr:
     image: linuxserver/bazarr
     container_name: bazarr
-    networks:
-      - plexnet
+    network_mode: service:transmission
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    networks:
-      - plexnet
     volumes:
-      - ${MOUNT_POINT}/config/bazarr:/config:cached
+      - ${MOUNT_POINT_CONFIG}/bazarr:/config:cached
       - ${MOUNT_POINT_MOVIES}:/movies:cached
       - ${MOUNT_POINT_TV}:/tv:cached
-    ports:
-      - 6767:6767
     deploy:
       resources:
         limits:
           memory: 4096M
     restart: unless-stopped
-  daapd:
-    image: linuxserver/daapd
-    container_name: daapd
-    network_mode: host
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${MOUNT_POINT}/config/daapd:/config:cached
-      - ${MOUNT_POINT_MUSIC}:/music:cached
-    restart: unless-stopped
-  # lidarr:
-  #   image: linuxserver/lidarr
-  #   container_name: lidarr
-  #   network_mode: service:transmission
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #     - UMASK_SET=022 #optional
-  #   volumes:
-  #     - ${MOUNT_POINT}/config/lidarr:/config
-  #     - ${MOUNT_POINT_MUSIC}:/music
-  #     - ${MOUNT_POINT_DOWNLOADS}/data/lidarr/downloads:/downloads
-  #   restart: unless-stopped
   htpcmanager:
     image: linuxserver/htpcmanager
     container_name: htpcmanager
@@ -154,23 +161,68 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${MOUNT_POINT}/config/htpcmanager:/config
+      - ${MOUNT_POINT_CONFIG}/htpcmanager:/config
     restart: unless-stopped
-  soulseek:
-    container_name: soulseek
-    restart: always
-    volumes:
-      - ${MOUNT_POINT}/config/soulseek:/data/.SoulseekQt
-      - ${MOUNT_POINT_UNSORTED}/music:/data/Soulseek Downloads
-      - ${MOUNT_POINT_DOWNLOADS}/data/soulseek/logs:/data/Soulseek Chat Logs
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - resize=scale
-      - resolution=1280x720
+  gostatic:
+    container_name: web
     ports:
-      - '6080:6080'
-    image: realies/soulseek
+        - 80:8043
+    volumes:
+        - ./www:/srv/http
+    image: pierrezemb/gostatic:latest-arm7
+    networks:
+      - plexnet
+    restart: unless-stopped
+  freedns:
+    build:
+      context: freedns-docker
+      dockerfile: Dockerfile
+    image: freedns
+    restart: always
+  watchtower:
+    image: v2tec/watchtower
+    container_name: watchtower_media-stack
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    command: sonarr radarr transmission jackett jellyfin emby watchtower_media-stack -s "0 0 3 ? * *" --cleanup
+    env_file: ./.env
+    restart: unless-stopped
+  # nicotine:
+  #   build:
+  #     context: nicotine-docker
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - pgid=${PUID}
+  #     - puid=${PGID}
+  #     - resize=scale
+  #     - resolution=1280x720
+  #   ports:
+  #     - 6080:6080
+  #   volumes:
+  #     - ${MOUNT_POINT_CONFIG}/nicotine:/root/.nicotine
+  #     - ${MOUNT_POINT_DATA}/nicotine:/root/nicotine_downloads
+  #     - ${MOUNT_POINT_MUSIC}:/root/nicotine_uploads
+  #rclone:
+  #  container_name: rclone
+  #  image: wiserain/rclone
+  #  restart: always
+  #  network_mode: "bridge"
+  #  volumes:
+  #    - ${MOUNT_POINT_CONFIG}/rclone/config:/config
+  #    - ${MOUNT_POINT_DATA}/rclone/log:/log
+  #    - ${MOUNT_POINT_DATA}/rclone/cache:/cache
+  #    - ${MOUNT_POINT_MUSIC}:/data:shared
+  #  privileged: true
+  #  devices:
+  #    - /dev/fuse
+  #  cap_add:
+  #    - MKNOD
+  #    - SYS_ADMIN
+  #  environment:
+  #    - PUID=${PUID}
+  #    - PGID=${PGID}
+  #    - TZ=${TZ}
+  #    - RCLONE_REMOTE_PATH=GDrive:Meuzeek
 networks:
   plexnet:
     driver: bridge
