@@ -1,3 +1,7 @@
+autoload bashcompinit
+bashcompinit
+
+
 alias gg=googler
 alias ZZ=exit
 alias ls-scripts='echo $(node -p -e "JSON.stringify(require(process.cwd()+\"/package.json\").scripts)") | jq '.' || python -m json.tool || cat'
@@ -52,7 +56,7 @@ alias dkd="docker run -d -P"
 alias dki="docker run -i -t -P"
 
 # Execute interactive container, e.g., $dex base /bin/bash
-alias dex="docker exec -i -t"
+# alias dex="docker exec -i -t"
 
 # Stop all containers
 dstop() { docker stop $(docker ps -a -q); }
@@ -108,6 +112,10 @@ alias cat=bat
 # alias flip='pushd_builtin'
 alias r='ranger'
 
+[[ -f .bash_secrets ]] && source .bash_secrets
+
+export AWS_SDK_LOAD_CONFIG=1  # Load the AWS_PROFILE in terraform calls
+
 # alias git=hub
 eval "$(hub alias -s)"
 
@@ -126,3 +134,39 @@ function gitsearch()
 }
 
 alias githunt=gitsearch
+
+gch() {
+ git checkout “$(git branch — all | fzf| tr -d ‘[:space:]’)”
+}
+
+#### WORK STUFF ####
+WORK_SRC="/home/vik/work/tk-meta"
+
+gt() {
+    if [[ -e $WORK_SRC/$1 ]]; then
+        cd $WORK_SRC/$1
+    else
+        print "there is no such project: $1"
+        return 1
+    fi
+}
+
+_repo_complete() {
+    local cur prev opts
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD - 1]}"
+    opts=$(for x in $(ls -d ${WORK_SRC}/*/ | xargs -n1 basename); do echo ${x}; done)
+    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F _repo_complete gt
+
+##### PYTHON SHITE ####
+function cd() {
+  builtin cd $1
+
+  if [[ -n "$VIRTUAL_ENV" && -d ./.venv ]] ; then
+    deactivate
+    . ./.venv/bin/activate # && echo "Using 🐍 python from `which python`"
+  fi
+}

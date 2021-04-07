@@ -36,7 +36,6 @@ molovo/tipz
 
 # Load the theme.
 mafredri/zsh-async
-sindresorhus/pure
 
 # Syntax highlighting bundle.
 zdharma/fast-syntax-highlighting
