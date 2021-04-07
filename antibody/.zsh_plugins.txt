@@ -41,3 +41,10 @@ sindresorhus/pure
 # Syntax highlighting bundle.
 zdharma/fast-syntax-highlighting
 zsh-users/zsh-syntax-highlighting
+
+
+# Python
+# ikhomutov/zsh-auto-venv
+
+# Exa support
+DarrinTisdale/zsh-aliases-exa 
