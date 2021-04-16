@@ -99,7 +99,7 @@ bindsym $mod+$i3-wm.binding.browser exec gtk-launch $(xdg-settings get default-w
 
 set_from_resource $rofiTheme rofi.theme /etc/regolith/styles/lascaille/rofi.rasi
 
-## Launch // Application // <> Space ##
+# ## Launch // Application // <> space ##
 set_from_resource $i3-wm.binding.launcher.app i3-wm.binding.launcher.app space
 set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $rofiTheme
 bindsym $mod+$i3-wm.binding.launcher.app exec $i3-wm.program.launcher.app
@@ -179,9 +179,9 @@ bindsym $mod+Ctrl+$ws7_key workspace number $ws17
 bindsym $mod+Ctrl+$ws8_key workspace number $ws18
 bindsym $mod+Ctrl+$ws9_key workspace number $ws19
 
-## Navigate // Next Workspace // <> Tab ##
-set_from_resource $i3-wm.binding.ws_next i3-wm.binding.ws_next Tab
-bindsym $mod+$i3-wm.binding.ws_next workspace next
+# ## Navigate // Next Workspace // <> Tab ##
+# set_from_resource $i3-wm.binding.ws_next i3-wm.binding.ws_next Tab
+# bindsym $mod+$i3-wm.binding.ws_next workspace next
 
 ## Navigate // Next Workspace // <><Alt> → ##
 set_from_resource $i3-wm.binding.ws_next2 i3-wm.binding.ws_next2 Mod1+Right
@@ -195,9 +195,9 @@ bindsym $mod+$i3-wm.binding.ws_next_on_output workspace next_on_output
 set_from_resource $i3-wm.binding.ws_next_on_output2 i3-wm.binding.ws_next_on_output2 Ctrl+l
 bindsym $mod+$i3-wm.binding.ws_next_on_output2 workspace next_on_output
 
-## Navigate // Previous Workspace // <><Shift> Tab ##
-set_from_resource $i3-wm.binding.ws_prev i3-wm.binding.ws_prev Shift+Tab
-bindsym $mod+$i3-wm.binding.ws_prev workspace prev
+# ## Navigate // Previous Workspace // <><Shift> Tab ##
+# set_from_resource $i3-wm.binding.ws_prev i3-wm.binding.ws_prev Shift+Tab
+# bindsym $mod+$i3-wm.binding.ws_prev workspace prev
 
 ## Navigate // Previous Workspace // <><Alt> ← ##
 set_from_resource $i3-wm.binding.ws_prev2 i3-wm.binding.ws_prev2 Mod1+Left
@@ -402,35 +402,6 @@ bindsym $mod+$i3-wm.binding.sleep exec $i3-wm.program.sleep
 # System Management
 ###############################################################################
 
-## Modify // Settings // <> c ##
-set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
-set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
-bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
-
-## Modify // Display Settings // <> d ##
-set_from_resource $i3-wm.binding.display i3-wm.binding.display d
-set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center --class=floating_window display
-bindsym $mod+$i3-wm.binding.display exec $i3-wm.program.display
-
-## Modify // Wifi Settings // <> w ##
-set_from_resource $i3-wm.binding.wifi i3-wm.binding.wifi w
-set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center --class=floating_window wifi
-bindsym $mod+$i3-wm.binding.wifi exec $i3-wm.program.wifi
-
-## Modify // Bluetooth Settings // <> b ##
-set_from_resource $i3-wm.binding.bluetooth i3-wm.binding.bluetooth b
-set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center --class=floating_window bluetooth
-bindsym $mod+$i3-wm.binding.bluetooth exec $i3-wm.program.bluetooth
-
-## Launch // File Browser // <><Shift> n ##
-set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
-set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
-bindsym $mod+$i3-wm.binding.files exec $i3-wm.program.files
-
-## Launch // Notification Viewer // <> n ##
-set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
-set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
-bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
 
 ###############################################################################
 # Workspace Management
@@ -438,11 +409,11 @@ bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
 
 # i3-snapshot for load/save current layout
 ## Modify // Save Window Layout // <> , ##
-set_from_resource $i3-wm.binding.save_layout i3-wm.binding.save_layout comma
-bindsym $mod+$i3-wm.binding.save_layout  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot
-## Modify // Load Window Layout // <> . ##
-set_from_resource $i3-wm.binding.load_layout i3-wm.binding.load_layout period
-bindsym $mod+$i3-wm.binding.load_layout exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
+# set_from_resource $i3-wm.binding.save_layout i3-wm.binding.save_layout comma
+# bindsym $mod+$i3-wm.binding.save_layout  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot
+# ## Modify // Load Window Layout // <> . ##
+# set_from_resource $i3-wm.binding.load_layout i3-wm.binding.load_layout period
+# bindsym $mod+$i3-wm.binding.load_layout exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
 
 # Toggle bar visibility
 ## Modify // Toggle Bar // <> i ##
@@ -665,3 +636,105 @@ set_from_resource $i3-wm.program.2 i3-wm.program.2 :
 exec --no-startup-id $i3-wm.program.2
 set_from_resource $i3-wm.program.3 i3-wm.program.3 :
 exec --no-startup-id $i3-wm.program.3
+
+# ===============WORKSPACE SWITCHER======================
+#
+set $ws $HOME/.config/regolith/i3/plugins/mru_switcher.py
+set $ws_options --borderwidth 10 --selectborderwidth=3 --activestyle=dotbox --relief=flat --font='Ubuntu 16 bold' --background='#551a8b' --foreground '#ffffff'
+
+# run the daemon on i3 startup
+# it's necessary to keep the history of workspaces
+# store 5 last active workspaces in the history
+exec --no-startup-id $ws --daemon --size 5
+
+# User programs
+exec --no-startup-id ~/.config/regolith/i3/layouts/i3_alternating_layout.py
+exec_always --no-startup-id alttab -d 1 -s 1
+
+# enable floating mode and hide both border and title for switcher window
+for_window [class="^I3-workspace-switcher$"] floating enable border none
+
+## Launch // Application // <> d ##
+# key binding in xresources
+
+
+## Navigate // Previous Workspace // <><Shift> Tab ##
+
+# bindings: Super+Tab and Super+Shift+Tab
+bindsym $mod+Tab exec --no-startup-id $ws --mod $mod $ws_options
+bindsym $mod+Shift+Tab exec --no-startup-id $ws --mod $mod --reverse $ws_options
+
+for_window [class="feh"] floating enable, sticky enable, border pixel 0, move absolute position 0 px 0 px
+###############################################################################
+# Settings mode
+###############################################################################
+
+
+mode "Settings Mode" {
+        # These bindings trigger as soon as you enter the resize mode
+
+  ## Modify // Settings // <> c ##
+  set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
+  set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
+  bindsym $i3-wm.binding.settings exec $i3-wm.program.settings
+
+  ## Modify // Display Settings // <> d ##
+  set_from_resource $i3-wm.binding.display i3-wm.binding.display d
+  set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center --class=floating_window display
+  bindsym $i3-wm.binding.display exec $i3-wm.program.display
+
+  ## Modify // Wifi Settings // <> w ##
+  set_from_resource $i3-wm.binding.wifi i3-wm.binding.wifi w
+  set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center --class=floating_window wifi
+  bindsym $i3-wm.binding.wifi exec $i3-wm.program.wifi
+
+  ## Modify // Bluetooth Settings // <> b ##
+  set_from_resource $i3-wm.binding.bluetooth i3-wm.binding.bluetooth b
+  set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center --class=floating_window bluetooth
+  bindsym $i3-wm.binding.bluetooth exec $i3-wm.program.bluetooth
+
+  ## Launch // File Browser // <><Shift> n ##
+  set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
+  set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
+  bindsym $i3-wm.binding.files exec $i3-wm.program.files
+
+  ## Launch // Notification Viewer // <> n ##
+  set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
+  set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
+  bindsym $i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+comma mode "default"
+}
+
+
+bindsym $mod+comma mode "Settings Mode"
+
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+exec --no-startup-id kitty --name=dropdown
+bindsym $mod+u			[instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+Shift+u		resize shrink height 10 px or 10 ppt
+
+# redshift modes
+set $mode_redshift Set colour temperature: (a)uto, (r)eset, (2)500K, (3)000K, (4)000K, (5)000K, (9)RED
+set $kill_redshift pkill -9 redshift;
+mode "$mode_redshift" {
+    bindsym a exec --no-startup-id "$kill_redshift redshift -P -t 5000:4000", mode "default"
+    bindsym n exec --no-startup-id "$kill_redshift redshift -x", mode "default"
+    bindsym 2 exec --no-startup-id "$kill_redshift redshift -P -O 2500", mode "default"
+    bindsym 3 exec --no-startup-id "$kill_redshift redshift -P -O 3000", mode "default"
+    bindsym 4 exec --no-startup-id "$kill_redshift redshift -P -O 4000", mode "default"
+    bindsym 5 exec --no-startup-id "$kill_redshift redshift -P -O 5000", mode "default"
+    bindsym 9 exec --no-startup-id "$kill_redshift redshift -P -O 1000", mode "default"
+
+    # exit mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+n mode "$mode_redshift"
+exec_always --no-startup-id flashfocus
