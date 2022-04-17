@@ -1,229 +1,339 @@
 version: "3.2"
 services:
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    command: -H unix:///var/run/docker.sock
-    restart: always
-    ports:
-      - 9000:9000
-      - 8000:8000
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${MOUNT_POINT_CONFIG}/portainer:/data
-  transmission:
-    container_name: transmission
-    volumes:
-      - '${MOUNT_POINT_TRANSMISSION}:/data'
-      - '/etc/localtime:/etc/localtime:ro'
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - CREATE_TUN_DEVICE=true
-      - OPENVPN_PROVIDER=PROTONVPN
-      - OPENVPN_CONFIG=CA\
-      - OPENVPN_USERNAME=${VPN_USERNAME}
-      - OPENVPN_PASSWORD=${VPN_PASSWORD}
-      - WEBPROXY_ENABLED=false
-      - LOCAL_NETWORK=192.168.0.0/16
-    ports:
-      - 9091:9091 # Transmission
-      - 7878:7878 # Radarr
-      - 9117:9117 # Jackett
-      - 8989:8989 # Radarr
-      - 8686:8686 # Lidarr
-      - 8085:8085 # HTPC Manager
-      - 6767:6767 # Bazaar
-      - 5299:5299 # LazyLibrarian
-    image: 'haugene/transmission-openvpn:latest-armhf'
-    restart: unless-stopped
-  radarr:
-    image: linuxserver/radarr
-    container_name: radarr
-    restart: always
-    network_mode: service:transmission
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-    volumes:
-      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
-      - ${MOUNT_POINT_CONFIG}/radarr:/config
-      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
-      - ${MOUNT_POINT_MOVIES}:/movies:cached
-    restart: always
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    restart: always
-    network_mode: service:transmission
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-    volumes:
-      - ${MOUNT_POINT_CONFIG}/jackett/:/config
-      - ${MOUNT_POINT}/data/jackett/blackhole/:/downloads
-    restart: unless-stopped
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: sonarr
-    restart: always
-    network_mode: service:transmission
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-    volumes:
-      - ${MOUNT_POINT_CONFIG}/sonarr:/config
-      - ${MOUNT_POINT_TV}:/tv:cached
-      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
-      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
-    restart: unless-stopped
-    # emby:
-    #   image: linuxserver/emby:beta
-    #   container_name: emby
-    #   environment:
-    #     - UID=1000
-    #     - GID=1000
-    #     - GIDLIST=100,44
-    #     - UMASK_SET=022
-    #     - PGID=${PGID}
-    #     - PUID=${PUID}
-    #     - TZ=${TZ}
-    #   devices:
-    #     - /dev/vchiq:/dev/vchiq
-    #   network_mode: host
-    #   volumes:
-    #     - /opt/vc/lib:/opt/vc/lib
-    #     - ${MOUNT_POINT_CONFIG}/emby:/config:cached
-    #     - ${MOUNT_POINT_MOVIES}:/movies:cached
-    #     - ${MOUNT_POINT_TV}:/tv:cached
-    #     - ${MOUNT_POINT_BOOKS}:/books:cached
-    #     - /dev/shm:/config/data/transcoding-temp/transcodes
-    #   ports:
-    #     - 8097:8097
-    #     - 8920:8920
-    #   restart: unless-stopped
-  jellyfin:
-    image: linuxserver/jellyfin
-    container_name: jellyfin
-    environment:
-      - UID=1000
-      - GID=100
-      - GIDLIST=100,44
-      - UMASK_SET=022
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-    devices:
-      - /dev/vchiq:/dev/vchiq #optional
-      # - /dev/video10:/dev/video10 #optional
-      # - /dev/video11:/dev/video11 #optional
-      # - /dev/video12:/dev/video12 #optional
-      - /dev/vcsm-cma:/dev/vcsm
-    network_mode: host
-    volumes:
-      - /opt/vc/lib:/opt/vc/lib
-      - ${MOUNT_POINT_CONFIG}/jellyfin:/config:cached
-      - ${MOUNT_POINT_MUSIC}:/music:cached
-      - ${MOUNT_POINT_MOVIES}:/movies:cached
-      - ${MOUNT_POINT_TV}:/tv:cached
-      - ${MOUNT_POINT_BOOKS}:/books:cached
-      - /dev/shm:/config/data/transcoding-temp/transcodes
-    ports:
-      - 8096:8096
-      - 8920:8920
-    restart: unless-stopped
   bazarr:
-    image: linuxserver/bazarr
     container_name: bazarr
-    network_mode: service:transmission
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${MOUNT_POINT_CONFIG}/bazarr:/config:cached
-      - ${MOUNT_POINT_MOVIES}:/movies:cached
-      - ${MOUNT_POINT_TV}:/tv:cached
     deploy:
       resources:
         limits:
           memory: 4096M
-    restart: unless-stopped
-  htpcmanager:
-    image: linuxserver/htpcmanager
-    container_name: htpcmanager
-    network_mode: service:transmission
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    image: linuxserver/bazarr
+    network_mode: service:transmission
+    restart: always
     volumes:
-      - ${MOUNT_POINT_CONFIG}/htpcmanager:/config
-    restart: unless-stopped
-  gostatic:
-    container_name: web
+      - ${MOUNT_POINT_CONFIG}/bazarr:/config:cached
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
+      - ${MOUNT_POINT_TV}:/tv:cached
+  flood:
+    command: '--port 3001 --allowedpath /data'
+    environment:
+      HOME: /config
+    hostname: flood
+    image: jesec/flood
     ports:
-        - 80:8043
-    volumes:
-        - ./www:/srv/http
-    image: pierrezemb/gostatic:latest-arm7
-    networks:
-      - plexnet
+      - '9090:3001'
     restart: unless-stopped
+    user: ${PUID}:${PGID}
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/flood:/config
+      - /media/transmission:/data
   freedns:
     build:
       context: freedns-docker
       dockerfile: Dockerfile
     image: freedns
     restart: always
-  watchtower:
-    image: v2tec/watchtower
-    container_name: watchtower_media-stack
+  jackett:
+    container_name: jackett
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+    image: linuxserver/jackett
+    network_mode: service:transmission
+    restart: always
     volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-    command: sonarr radarr transmission jackett jellyfin emby watchtower_media-stack -s "0 0 3 ? * *" --cleanup
-    env_file: ./.env
-    restart: unless-stopped
-  # nicotine:
-  #   build:
-  #     context: nicotine-docker
-  #     dockerfile: Dockerfile
+      - ${MOUNT_POINT_CONFIG}/jackett/:/config
+      - ${MOUNT_POINT}/data/jackett/blackhole/:/downloads
+  # jellyfin:
+  #   container_name: jellyfin
+  #   devices:
+  #     - /dev/dri:/dev/dri
   #   environment:
-  #     - pgid=${PUID}
-  #     - puid=${PGID}
-  #     - resize=scale
-  #     - resolution=1280x720
+  #     - UID=1000
+  #     - GID=1000
+  #     - GIDLIST=100,44
+  #     - UMASK_SET=022
+  #     - PGID=${PGID}
+  #     - PUID=${PUID}
+  #     - TZ=${TZ}
+  #   group_add:
+  #     - 989
+  #   image: linuxserver/jellyfin
   #   ports:
-  #     - 6080:6080
+  #     - '8096:8096'
+  #     - '8920:8920'
+  #   privileged: true
+  #   restart: always
   #   volumes:
-  #     - ${MOUNT_POINT_CONFIG}/nicotine:/root/.nicotine
-  #     - ${MOUNT_POINT_DATA}/nicotine:/root/nicotine_downloads
-  #     - ${MOUNT_POINT_MUSIC}:/root/nicotine_uploads
-  #rclone:
-  #  container_name: rclone
-  #  image: wiserain/rclone
-  #  restart: always
-  #  network_mode: "bridge"
-  #  volumes:
-  #    - ${MOUNT_POINT_CONFIG}/rclone/config:/config
-  #    - ${MOUNT_POINT_DATA}/rclone/log:/log
-  #    - ${MOUNT_POINT_DATA}/rclone/cache:/cache
-  #    - ${MOUNT_POINT_MUSIC}:/data:shared
-  #  privileged: true
-  #  devices:
-  #    - /dev/fuse
-  #  cap_add:
-  #    - MKNOD
-  #    - SYS_ADMIN
-  #  environment:
-  #    - PUID=${PUID}
-  #    - PGID=${PGID}
-  #    - TZ=${TZ}
-  #    - RCLONE_REMOTE_PATH=GDrive:Meuzeek
-networks:
-  plexnet:
-    driver: bridge
+  #     - /opt/vc/lib:/opt/vc/lib
+  #     - ${MOUNT_POINT_CONFIG}/jellyfin:/config:cached
+  #     - ${MOUNT_POINT_MUSIC}:/music:cached
+  #     - ${MOUNT_POINT_MOVIES}:/movies:cached
+  #     - ${MOUNT_POINT_TV}:/tv:cached
+  #     - ${MOUNT_POINT_BOOKS}:/books:cached
+  #     - /dev/shm:/config/data/transcoding-temp/transcodes
+  ombi:
+    container_name: ombi
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - BASE_URL=/ombi
+    image: ghcr.io/linuxserver/ombi
+    ports:
+      - '3579:3579'
+    restart: unless-stopped
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/ombi:/config
+  overseerr:
+    container_name: wamc_overseerr
+    environment:
+      - TZ=${TZ}
+    image: sctx/overseerr:latest
+    ports:
+      - '5055:5055'
+    restart: unless-stopped
+    volumes:
+      - ./overseerr/:/app/config
+  plex:
+    container_name: plex
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - ADVERTISE_IP=http://${LOCAL_STATIC_IP}:32400
+      - DB_UPSTREAM=http://${DOCKER_GATEWAY_HOST:-host.docker.internal}:3000
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PLEX_UID=${PUID}
+      - PLEX_GID=${PGID}
+    image: plexinc/pms-docker:latest
+    network_mode: host
+    privileged: true
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/plex:/config:cached
+      - ${MOUNT_POINT_CONFIG}/plex/deb:/deb
+      - /merge/dvr:/dvr
+      - ${MOUNT_POINT_MUSIC}:/music:cached
+      - ${MOUNT_POINT}/unsorted/complete:/music_unsorted
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
+      - ${MOUNT_POINT_TV}:/tv:cached
+      - ${MOUNT_POINT_CONFIG}/plex/transcode:/transcode
+      - /dev/shm:/config/data/transcoding-temp/transcodes
+  portainer:
+    command: '-H unix:///var/run/docker.sock'
+    container_name: portainer
+    image: portainer/portainer
+    ports:
+      - '9000:9000'
+      - '8000:8000'
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${MOUNT_POINT_CONFIG}/portainer:/data
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      traefik.enable: true
+      traefik.http.routers.webdu.rule: PathPrefix(`/port`)
+  radarr:
+    container_name: radarr
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+    image: linuxserver/radarr
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      traefik.enable: true
+      traefik.http.routers.radarr.rule: PathPrefix(`/movies`)
+    network_mode: service:transmission
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
+      - ${MOUNT_POINT_CONFIG}/radarr:/config
+      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
+      - ${MOUNT_POINT_MOVIES}:/movies:cached
+  samba:
+    command: '-s "Mount;/mnt" -s "Bobs Volume;/mnt2;yes;no;no;bob" -u "pi;pi" -p'
+    environment:
+      TZ: EST5EDT
+    image: dperson/samba
+    networks:
+      - default
+    ports:
+      - 137:137/udp
+      - 138:138/udp
+      - 139:139/tcp
+      - 445:445/tcp
+    read_only: true
+    restart: unless-stopped
+    stdin_open: true
+    tmpfs:
+      - /tmp
+    tty: true
+    volumes:
+      - ${MOUNT_POINT}:/mnt:z
+      - ${MOUNT_POINT}/unsorted:/unsorted
+  scrutiny:
+    cap_add:
+      - SYS_RAWIO
+    container_name: scrutiny
+    devices:
+      - /dev/sda2
+      - /dev/sdb1
+    image: analogj/scrutiny
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    ports:
+      - '8083:8080'
+    restart: always
+    volumes:
+      - /run/udev:/run/udev:ro
+  sonarr:
+    container_name: sonarr
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+    image: linuxserver/sonarr
+    # labels:
+    # - traefik.http.routers.sonarr.rule=Host(`${DOMAIN}`) && PathPrefix(`/tv`)
+    # traefik.http.services.sonarr.loadbalancer.server.port: 8989
+    # traefik.http.middlewares.autodetect.contenttype.autodetect: true
+    # com.centurylinklabs.watchtower.enable: true
+    # traefik.enable: true
+    # traefik.http.routers.radarr.rule: PathPrefix(`/tv`)
+    network_mode: service:transmission
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/sonarr:/config
+      - ${MOUNT_POINT_TV}:/tv:cached
+      - ${MOUNT_POINT_TRANSMISSION}/completed:/downloads:cached
+      - ${MOUNT_POINT_TRANSMISSION}:/data:cached
+  soulseek:
+    container_name: soulseek
+    environment:
+      - pgid=${PGID}
+      - puid=${PUID}
+      - resize=scale
+      - resolution=1280x720
+    image: realies/soulseek
+    ports:
+      - '6080:6080'
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/soulseek:/data/.SoulseekQt
+      - ${MOUNT_POINT}/unsorted:/data/Soulseek Downloads
+      - ${MOUNT_POINT}/soulseek/logs:/data/Soulseek Chat Logs
+  speedtest:
+    container_name: wamc_speedtest
+    image: e7db/speedtest
+    ports:
+      - '8082:80'
+    restart: always
+  # traefik:
+  #   command:
+  #     - '--accesslog.filePath=/logs/access.log'
+  #     - '--api.insecure=true'
+  #     - '--global.sendanonymoususage=false'
+  #     - '--providers.docker'
+  #     - '--providers.docker.exposedbydefault=false'
+  #   container_name: traefik
+  #   image: traefik:v2.2
+  #   labels:
+  #     com.centurylinklabs.watchtower.enable: true
+  #     traefik.enable: true
+  #   # network_mode: service:transmission
+  #   ports:
+  #     - '80:80'
+  #     - '8080:8080'
+  #   restart: always
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./traefik-logs:/logs
+  transmission:
+    cap_add:
+      - NET_ADMIN
+    container_name: transmission
+    environment:
+      - CREATE_TUN_DEVICE=true
+      - OPENVPN_PROVIDER=SURFSHARK
+      - OPENVPN_CONFIG=es-bcn_tcp
+      - OPENVPN_USERNAME=${VPN_USERNAME}
+      - OPENVPN_PASSWORD=${VPN_PASSWORD}
+      - WEBPROXY_ENABLED=false
+      - LOCAL_NETWORK=192.168.0.0/16
+      - TRANSMISSION_WEB_UI=flood-for-transmission
+    image: haugene/transmission-openvpn
+    ports:
+      - '9091:9091'
+      - '9117:9117'
+      - '8085:8085'
+      - '6767:6767'
+      - '5299:5299'
+      - '7878:7878'
+      - '8989:8989'
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_TRANSMISSION}:/data
+      - /etc/localtime:/etc/localtime:ro
+  watchtower:
+    command: sonarr radarr transmission jackett jellyfin emby watchtower_media-stack -s "0 0 3 ? * *" --cleanup
+    container_name: watchtower_media-stack
+    env_file: ./.env
+    image: v2tec/watchtower
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  webdu:
+    command:
+      - '--base_path=/data'
+    container_name: wamc_webdu
+    image: lutzky/webdu
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      traefik.enable: true
+      traefik.http.middlewares.webdu-stripprefix.stripprefix.prefixes: /webdu
+      traefik.http.routers.webdu.middlewares: webdu-stripprefix
+      traefik.http.routers.webdu.rule: PathPrefix(`/webdu`)
+    restart: always
+    volumes:
+      - ${MOUNT_POINT_MEDIA}:/data:ro
+  zerotier:
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    container_name: zerotier-one
+    devices:
+      - /dev/net/tun
+    image: zyclonite/zerotier
+    network_mode: host
+    restart: always
+    volumes:
+      - /var/lib/zerotier-one:/var/lib/zerotier-one
+  rclone_rclone:
+    image: rclone/rclone
+    container_name: rclone_rclone
+    restart: always
+    command: rcd --rc-web-gui --rc-addr :5572 --rc-user jsmith --rc-pass mypassword
+    ports:
+      - "5572:5572"
+    volumes:
+      - ${MOUNT_POINT_CONFIG}/rclone:/config/rclone
+      - ${MOUNT_POINT_DATA}/rclone:/logs
+    environment:
+      - PHP_TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
 
+networks:
+  default:
+    external:
+      name: backbone
