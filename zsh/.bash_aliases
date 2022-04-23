@@ -9,6 +9,7 @@ alias ls-scripts='echo $(node -p -e "JSON.stringify(require(process.cwd()+\"/pac
 alias v=nvim
 alias vim=nvim
 alias abl='antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh'
+alias ssh="TERM=xterm ssh"
 
 # alias for copy move and remove
 alias cp='cp -v'
@@ -120,6 +121,7 @@ fi
 # alias back='popd'
 # alias flip='pushd_builtin'
 alias r='ranger'
+alias emulator='~/Library/Android/sdk/emulator/emulator' 
 
 [[ -f .bash_secrets ]] && source .bash_secrets
 
@@ -133,8 +135,17 @@ function sshake() {
 }
 
 function pi() {
-  ssh root@pi
+  ssh pi@pi
 }
+
+function pidc() {
+  ssh pi@pi "docker-compose $@"
+}
+
+function pil() {
+  ssh pi@pi "docker-compose logs -f $@"
+}
+
 
 function gitsearch()
 {
@@ -170,6 +181,11 @@ _repo_complete() {
 
 complete -F _repo_complete gt
 
+antibodyinit() {
+  antibody bundle < "$HOME/dotfiles/antibody/.zsh_plugins.txt" > $HOME/.zsh_plugins.sh
+  antibody update
+}
+
 ##### PYTHON SHITE ####
 function cd() {
   builtin cd $1
@@ -179,3 +195,55 @@ function cd() {
     . ./.venv/bin/activate # && echo "Using 🐍 python from `which python`"
   fi
 }
+
+##### GIT ####
+alias grc="git rebase --continue"
+alias gmc="git merge --continue"
+alias gm="git pull --rebase origin main"
+
+
+
+### FASD ###
+# fasd {{{
+# =====
+if _has fasd; then
+    fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
+    if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+	fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
+    fi
+    . "$fasd_cache"
+    unset fasd_cache
+fi
+# }}}
+#
+
+# If fasd is installed and in use, add a bunch of
+# aliases for it.
+if command -v fasd >/dev/null 2>&1; then
+    # Any
+    alias a='fasd -a'
+
+    # Show/search/select
+    alias s='fasd -si'
+
+    # Directory
+    alias d='fasd -d'
+
+    # File
+    alias f='fasd -f'
+
+    # Interactive directory selection
+    alias sd='fasd -sid'
+
+    # Interactive file selection
+    alias sf='fasd -sif'
+
+    # cd - same functionality as j in autojump
+    alias z='fasd_cd -d'
+
+    # Interactive cd
+    alias zz='fasd_cd -d -i'
+
+    # Vim
+    alias v='fasd -f -e vim'
+fi

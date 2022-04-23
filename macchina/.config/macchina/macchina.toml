@@ -1,0 +1,58 @@
+# Specify the theme to use
+# Accepted values (case-insensitive):
+#   - Hydrogen
+#   - Helium
+#   - Lithium
+#   - Beryllium
+#   - Boron
+theme = "Boron"
+
+# Hides the specified readouts.
+# Conflicts with: show_only
+# Accepted values (case-sensitive):
+#   - Host
+#   - Machine
+#   - Kernel
+#   - Distribution
+#   - OperatingSystem
+#   - DesktopEnvironment
+#   - WindowManager
+#   - Resolution
+#   - Backlight
+#   - Packages
+#   - LocalIP
+#   - Terminal
+#   - Shell
+#   - Uptime
+#   - Processor
+#   - ProcessorLoad
+#   - Memory
+#   - Battery
+# Example:
+hide = ["Packages", "Kernel", "DesktopEnvironment", "WindowManager", "Resolution"]
+
+# Prefer small ASCII variant.
+# small_ascii = true
+
+# Displays a palette of your active colorscheme
+palette = true
+
+# Turns data into bars for specific readouts
+bar = true
+
+# # Randomizes the color of the keys each time your run the program
+random_color = false
+
+# # Randomizes the color of the separator each time your run the program
+# random_sep_color = true
+
+# Hides bar delimiters
+no_bar_delimiter = false
+
+# Shorten uptime format
+short_uptime = true
+
+# Specify the title of the box
+box_title = "<<=== Stay strøng ===>>"
+
+custom_ascii = "/Users/piggyslasher/.config/macchina/liliput.txt"
