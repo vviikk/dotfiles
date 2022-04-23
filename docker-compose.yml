@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+    shell:
+        image: bowmanjd/posix-playground
+        volumes:
+            - ".:/root/dotfiles:cached"

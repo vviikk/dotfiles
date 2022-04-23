@@ -15,12 +15,17 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 
-alias exa='exa --icons'
+if command -v exa &> /dev/null
+then
+  alias exa='exa --icons'
+else
+  unalias ls
+fi
 
 # copy the public key
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
-eval $(thefuck --alias f)
+[ -e  thefuck ] && eval $(thefuck --alias f)
 
 ghp() {
   git clone https://github.com/$1.git
@@ -107,8 +112,10 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 #   echo -n "DIRSTACK: "
 #   dirs
 # }
-
-alias cat=bat
+if command -v bat &> /dev/null
+then
+  alias cat=bat
+fi
 # alias cd='pushd'
 # alias back='popd'
 # alias flip='pushd_builtin'
@@ -119,7 +126,7 @@ alias r='ranger'
 export AWS_SDK_LOAD_CONFIG=1  # Load the AWS_PROFILE in terraform calls
 
 # alias git=hub
-eval "$(hub alias -s)"
+[ -e hub ] && eval "$(hub alias -s)"
 
 function sshake() {
   ssh-copy-id -i ~/.ssh/id_rsa.pub $1

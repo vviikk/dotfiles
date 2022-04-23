@@ -23,7 +23,6 @@ zsh-users/zsh-autosuggestions
 
 # Node / NPM
 akoenig/npm-run.plugin.zsh
-lukechilds/zsh-nvm
 cowboyd/zsh-volta
 
 # Extra zsh completions
