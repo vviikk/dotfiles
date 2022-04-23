@@ -1,5 +1,8 @@
 [ -f $HOME/.cache/wal/sequences ] && cat $HOME/.cache/wal/sequences
 
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
 bindkey "^?" backward-delete-char
 # vi mode
 bindkey -v
@@ -47,8 +50,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 export BAT_THEME="Default"
 
-[ -f /Users/vramanujam/.travis/travis.sh ] && source /Users/vramanujam/.travis/travis.sh
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=13"
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
@@ -82,27 +83,22 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 [[ -e ~/.zshrc_extra ]] && source ~/.zshrc_extra
 export PATH="/usr/local/sbin:$PATH"
 
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
+# export NVM_LAZY_LOAD=true
+# export NVM_COMPLETION=true
 
 source ~/.zsh_plugins.sh
 source ~/.bash_functions
-eval export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
-export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
-export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:";
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
 export AWS_PROFILE=prod
 export EXA_ICON_SPACING=1
 
-export NVM_DIR="$HOME/.nvm"
-	[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
-	[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# 	[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
+# 	[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-eval "$(starship init zsh)"
 
 # where is antibody keeping its stuff?
 ANTIBODY_HOME="$(antibody home)"
 
 source ~/.bash_aliases
+
+eval "$(starship init zsh)"
