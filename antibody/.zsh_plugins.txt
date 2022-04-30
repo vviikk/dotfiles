@@ -23,7 +23,7 @@ zsh-users/zsh-autosuggestions
 
 # Node / NPM
 akoenig/npm-run.plugin.zsh
-cowboyd/zsh-volta
+# cowboyd/zsh-volta
 
 # Extra zsh completions
 zsh-users/zsh-completions
@@ -46,4 +46,4 @@ zsh-users/zsh-syntax-highlighting
 # ikhomutov/zsh-auto-venv
 
 # Exa support
-DarrinTisdale/zsh-aliases-exa 
+DarrinTisdale/zsh-aliases-exa
