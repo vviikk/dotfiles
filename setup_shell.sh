@@ -87,10 +87,20 @@ install_starship() {
     echo -e '\e[1A\e[K🚀 Installing starship prompt...DONE'
 }
 
+install_github_cli() {
+    echo "🚀 Installing Github CLI..."
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt update
+    sudo apt install -yq gh
+    echo -e '\e[1A\e[K🚀 Installing Github CLI...DONE'
+}
+
 install_dependencies
 change_to_zsh
 install_plugins
 install_starship
+install_github_cli
 
 curl -o /bin/pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch && chmod +x /bin/pfetch
 
