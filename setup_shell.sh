@@ -89,10 +89,10 @@ install_starship() {
 
 install_github_cli() {
     echo "🚀 Installing Github CLI..."
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-    sudo apt update
-    sudo apt install -yq gh
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | $Sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | $Sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    $Sudo apt update
+    $Sudo apt install -yq gh
     echo -e '\e[1A\e[K🚀 Installing Github CLI...DONE'
 }
 
