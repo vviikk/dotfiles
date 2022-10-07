@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# cd into this folder
+cd ~/dotfiles/bootstrap/macos
+
 # Jason Rudolph's Keyboard 
 # check if ~/.keyboard directory exists
 if [[ -d ~/.keyboard ]]; then
@@ -18,6 +21,13 @@ if [[ -f Brewfile ]]; then
 	# For FirefoxPWA
 	sudo mkdir -p "/Library/Application Support/Mozilla/NativeMessagingHosts"
   sudo ln -sf "/opt/homebrew/opt/firefoxpwa/share/firefoxpwa.json" "/Library/Application Support/Mozilla/NativeMessagingHosts/firefoxpwa.json"
+
+	# Setup ZSH & Starship
+	pushd ~/dotfiles
+	stow zsh
+	curl -sS https://starship.rs/install.sh | sh
+	cd antibody && ./install.sh
+	popd
 else
 	echo "Brewfile not found"
 fi

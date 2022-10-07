@@ -17,7 +17,7 @@
         "revision": "f7b7bcdd53b5bd08422d133c1c6657c71f7c7c1b"
       },
       "homebrew/core": {
-        "revision": "eb85b652395204264c452f2f25a41c081fcc1cd3"
+        "revision": "9e9964bce5a6f50fe297e4efb4f14c6999437b7f"
       },
       "homebrew/services": {
         "revision": "4fe8e3c38c9a38f1d76c9d741f32bdfe8c59e340"
@@ -1886,6 +1886,12 @@
         "options": {
           "full_name": "zerotier-one"
         }
+      },
+      "flux": {
+        "version": "42.1",
+        "options": {
+          "full_name": "flux"
+        }
       }
     }
   },
@@ -1894,7 +1900,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.6.4",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "eb85b652395204264c452f2f25a41c081fcc1cd3",
+        "Homebrew/homebrew-core": "9e9964bce5a6f50fe297e4efb4f14c6999437b7f",
         "CLT": "14.0.0.0.1.1661618636",
         "Xcode": "14.0",
         "macOS": "12.5"
