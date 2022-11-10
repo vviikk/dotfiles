@@ -34,7 +34,7 @@ unixorn/docker-helpers.zshplugin
 # Producticity
 molovo/tipz
 
-# Load the theme.
+# Make prompt faster
 mafredri/zsh-async
 
 # Syntax highlighting bundle.
