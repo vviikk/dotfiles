@@ -7,16 +7,9 @@
 # Seinh/git-prune
 # unixorn/git-extra-commands
 
-# robbyrussell/oh-my-zsh folder:plugins/pip
 # lein
-# robbyrussell/oh-my-zsh folder:plugins/command-not-found
 j-arnaiz/common-aliases
 mbrubeck/compleat
-# robbyrussell/oh-my-zsh folder:plugins/yarn
-# robbyrussell/oh-my-zsh folder:plugins/thefuck
-# robbyrussell/oh-my-zsh folder:plugins/aws
-
-# osx
 
 # Fish-like auto suggestions
 zsh-users/zsh-autosuggestions
@@ -38,12 +31,12 @@ molovo/tipz
 mafredri/zsh-async
 
 # Syntax highlighting bundle.
-zdharma/fast-syntax-highlighting
-zsh-users/zsh-syntax-highlighting
-
-
-# Python
-# ikhomutov/zsh-auto-venv
+zdharma-continuum/fast-syntax-highlighting
 
 # Exa support
 DarrinTisdale/zsh-aliases-exa
+
+
+# FZF
+unixorn/fzf-zsh-plugin
+

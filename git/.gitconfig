@@ -26,7 +26,7 @@
     git checkout $source && git pull && git checkout - && git rebase -i $source && git push -f; };f "
 [core]
 	excludesfile = /home/vik/.gitignore_global
-	editor = nvim
+	editor = lvim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
