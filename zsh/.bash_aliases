@@ -135,7 +135,7 @@ function sshake() {
 }
 
 function pi() {
-  ssh pi@pi
+  ssh pi@pi $@
 }
 
 function pidc() {
