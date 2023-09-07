@@ -1,4 +1,6 @@
-export EDITOR="nvim"
+# shellcheck disable=SC2148
+# vim: ft=zsh
+export EDITOR="lvim"
 export TERMINAL="kitty"
 
 export BAT_THEME="Default"

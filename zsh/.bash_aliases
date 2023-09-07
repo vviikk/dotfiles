@@ -229,22 +229,7 @@ function refreshenv() {
   fi
 }
 
-##### GIT ####
-alias grc="git rebase --continue"
-alias gmc="git merge --continue"
-alias gmain="git pull --rebase origin main"
-alias gmaster="git pull --rebase origin master"
 
-function gpr() {
-  git stash && \
-  git pull --rebase origin "$(git remote show origin | awk '/HEAD branch:/ {print $3}')" && \
-  git stash pop
-}
-
-
-function pr() {
-  gh pr list | sk --preview "gh pr checks {+1}; gh pr view {+1}" --ansi | awk '{print $1}' | xargs gh pr checkout
-}
 
 function get-tk-cli() {
   if [[ -z "$TK_CLI_VERSION" ]]; then
@@ -337,3 +322,31 @@ function dc() {
   fi
 }
 
+
+##### GIT ####
+alias gpu="git pushup"
+alias gpv="gh pr view -w"
+alias grc="git rebase --continue"
+alias gmc="git merge --continue"
+alias gmain="git pull --rebase origin main"
+alias gmaster="git pull --rebase origin master"
+
+function gpr() {
+  git stash && \
+  git pull --rebase origin "$(git remote show origin | awk '/HEAD branch:/ {print $3}')" && \
+  git stash pop
+}
+
+
+function pr() {
+  gh pr list | sk --preview "gh pr checks {+1}; gh pr view {+1}" --ansi | awk '{print $1}' | xargs gh pr checkout
+}
+
+### Alias manager
+
+function add-alias() {
+  printf "alias %s='%s'\n" "$1" "$2" >> ~/.bash_aliases
+  rr
+}
+
+alias gapf='git add . && git commit --amend --no-edit && git push -f'
